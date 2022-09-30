@@ -1,0 +1,113 @@
+{% extends "body/body.html" %}
+{% block main %}
+{%load static%}
+
+
+<div class="section-indent nomargin section__fluid tt-position__relative mobile-nopadding">
+    <div class="tt-iconbox-subpages">
+        {%include 'body/socal.html'%}
+    </div>
+    <div class="tt-pagetitle">
+        <div class="tt-pagetitle__img">
+            <picture>
+                <source srcset="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.webp' %}" type="image/webp">
+                <source srcset="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.jpg' %}" type="image/jpg">
+                <img src="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.jpg' %}" alt="">
+            </picture>
+        </div>
+        <div class="tt-pagetitle__wrapper">
+            <div class="tt-pagetitle__title">
+                Магазин
+            </div>
+            <ul class="tt-breadcrumbs">
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="tt-pageContent">
+    <div class="section-indent">
+        <div class="container container__tablet-fluid">
+            <div class="row">
+                {%include 'shop/sitebar.html'%}
+                <div class="col-lg-8 col-xl-7">
+                    <div class="tt-filters" style="width: 300px;">
+                        <div class="tt-col tt-filters__toggle-parent">
+                            <div class="tt-filters__toggle" id="js-toggle__btn">
+                                <div class="tt-icon">
+
+                                </div>
+                                <div class="tt-text">
+                                    Filter
+                                </div>
+                                Category.objects.all()
+                            </div>
+                        </div>  
+                        <div class="tt-col tt-filters__info-parent tt-visible__descktop">
+                            <div class="tt-filters__info">
+                                Отабражено {{fiter_len}} из {{all_len}} товаров
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    <form  class="tt-newsletter__form"   method="get" action="{% url 'search' cat_id%}">
+                        <input type="text" name="q" class="tt-form__control"  placeholder="Поиск" value="{{q}}">
+                        <button type="submit" class="tt-btn tt-btn02">
+                            <span class="tt-btn__text" data-effect="Найти">
+                                Найти
+                            </span>
+                            <span class="tt-btn__icon icon-142042">
+                            </span>
+                        </button>
+                        <div class="tt-modal-message">
+                            Form sent successfully
+                        </div>
+                    </form>
+                    <div class="tt-listing row">
+                        {%for p in products%}
+                        <div class="col-6 col-md-4 tt-listing__col-item">
+                            <div class="tt-product">
+                                <div class="tt-product__img">
+                                    <a href="{%url 'single_page' p.id%}" class="tt-img">
+                                        <img src="{{p.image.url}}" alt="">
+                                        <div class="btn-addtocart">Подробнее
+                                            <span class="tt-btn__icon icon-142042">
+
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <div class="tt-label-location">
+                                        <div class="tt-label-new">
+                                            {%if p.status == True%}
+                                            На складе
+                                            {%else%}
+                                            Нету
+                                            {%endif%}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tt-product__description">
+                                    <h2 class="tt-product__title">
+                                        <a href="shop-item.html">{{p.title}}</a>
+                                    </h2>
+                                    <div class="tt-product__price">
+                                        {{p.price}}сом
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {%endfor%}
+                    </div>
+                    {%include 'pagin/pagination.html'%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tt-bg bg-index-04 lazyload" data-bg="{% static 'assets/images/background-marker/bg-index-04.png' %}">
+</div>
+
+
+
+{% endblock main %}

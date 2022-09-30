@@ -1,0 +1,251 @@
+{% extends "body/body.html" %}
+{% block main %}
+{%load static%}
+
+
+<div class="section-indent nomargin section__fluid tt-position__relative mobile-nopadding">
+	<div class="tt-iconbox-subpages">
+		{%include 'body/socal.html' %}
+	</div>
+	<div class="tt-pagetitle">
+		<div class="tt-pagetitle__img">
+			<picture>
+				<source srcset="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.webp' %}" type="image/webp">
+				<source srcset="images/pagetitle_bg/pagetitle_bg01.jpg" type="image/jpg">
+				<img src="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.jpg' %}" alt="">
+			</picture>
+		</div>
+		<div class="tt-pagetitle__wrapper">
+			<div class="tt-pagetitle__title">
+				Shop Product
+			</div>
+			<ul class="tt-breadcrumbs">
+				<li>
+					{{product.title}}
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div id="tt-pageContent">
+	<div class="section-indent">
+		<div class="container container__tablet-fluid">
+			<div class="row">
+				<div class="col-sm-6">
+					<!-- Carusel Gallery -->
+					<div class="gallery-item">
+						<div id="gallery-item__large">
+							<img src="{{product.image.url}}" alt="">
+						</div>
+						<div id="gallery-item__thumbnail">
+							{%for i in images%}
+							<div data-image="{{i.image.url}}">
+								<picture>
+									<source srcset="{{i.image.url}}" data-srcset="{{i.image.url}}" type="image/webp">
+									<source
+										srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAB5AQMAAAD8j7YoAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAABRJREFUOMtjGAWjYBSMglEwCnABAAYlAAH4hsGkAAAAAElFTkSuQmCC"
+										data-srcset="{{i.image.url}}" type="image/jpg">
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAB5AQMAAAD8j7YoAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAABRJREFUOMtjGAWjYBSMglEwCnABAAYlAAH4hsGkAAAAAElFTkSuQmCC"
+										data-src="{{i.image.url}}" class="lazyload" alt="">
+								</picture>
+							</div>
+							{%endfor%}
+						</div>
+					</div>
+					<!-- -->
+				</div>
+				<div class="col-sm-6 product-single">
+					<h1 class="product-single___title">
+						{{product.title}}
+					</h1>
+					<div class="tt-rating__wrapper">
+						<div class="tt-rating">
+							<i class="icon-56786">
+							</i>
+							<i class="icon-56786">
+							</i>
+							<i class="icon-56786">
+							</i>
+							<i class="icon-56786">
+							</i>
+							<i class="icon-56786 icon-star-empty">
+							</i>
+						</div>
+						<a href="#rev" class="tt-rating__info">{{len_r}} oтзывов</a>
+						&nbsp;
+						&nbsp;
+						&nbsp;
+						<div class="">
+							{% for star in rev_len%}
+							{%if star > all_rev%}
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+								<path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+							</svg>
+							
+							{%else%}
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="yellow" viewBox="0 0 16 16">
+								<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+							</svg>
+							
+							{%endif%}
+							{%endfor%}
+						</div>
+					</div>
+					<div class="product-single___price">
+						{{product.price}}сом
+					</div>
+					<div class="product-single__indent">
+						{{product.description}}
+					</div>
+					{% if request.user.is_authenticated%}
+					<div class="product-single__indent">
+						<form class="tt-form-inline" method="post" accept="basket">
+							{%csrf_token%}
+							
+								
+									<div class="tt-counter js-counter">
+										<div class="tt-counter__btn tt-btn-minus">
+											-
+										</div>
+										<input class="tt-counter__input" type="text" name="quantity" value="1" >
+										<div class="tt-counter__btn tt-btn-plus">
+											+
+										</div>
+									</div>
+									&nbsp;
+									&nbsp;
+									&nbsp;
+							
+							<button type="submit" class="tt-btn tt-btn02" name="basket">
+								<span class="tt-btn__text" data-effect="В кoрзину">В кoрзину</span>
+							<span class="tt-btn__icon icon-142042"></span></button>
+							
+							
+							
+						</form><br>
+						{% if request.user.is_staff%}
+							<a class="btn btn-primary" href="{% url 'update_product' id%}" role="button">Изменить</a>
+							&nbsp;
+							&nbsp;
+							&nbsp;
+							<a class="btn btn-danger" href="{% url 'delete_product' id%}" role="button">Удалить</a>
+						{%endif%}
+					</div>
+					{%endif%}
+					<div class="product-single__indent">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="section-indent-small">
+		<div class="container container__tablet-fluid">
+			<!-- tabs -->
+			<div class="tabs-dafault02 tabs__01 js-tabs">
+				<div class="tabs__nav tabs__nav-center">
+					<div class="tabs__nav-item active" data-pathtab="tab-single-product-01">
+						<div class="tt-text">
+							Описание
+						</div>
+					</div>
+				</div>
+				<div class="tabs__container">
+					<div class="tabs__layout-item active" id="tab-single-product-01">
+						{{product.content| safe}}
+					</div>
+				</div>
+			</div>
+			<div class="tabs-dafault02 tabs__01 js-tabs">
+				<div class="tabs__nav tabs__nav-center">
+					<div class="tabs__nav-item active" data-pathtab="tab-single-product-01">
+						<div class="tt-text">
+							Оставить отзыв
+						</div>
+					</div>
+				</div>
+				<div class="tabs__container">
+					<div class="singlepost__indent">
+						{% if request.user.is_authenticated%}
+						<div class="singlepost__indent__title">Оставить отзыв</div>
+						{%include 'reviews/form.html'%}
+						{%else%}
+						
+						<div class="singlepost__indent__title">Чтобы oставить отзыв нужно <a  href="{%url 'registration'%}">зарегестрироватся</a>  или <a href="{%url 'login'%}">войти</a> </div>
+						{%endif%}
+					</div>
+
+
+				</div>
+			</div>
+
+			<a href="" name="rev"></a>
+
+			<div class="tabs-dafault02 tabs__01 js-tabs">
+				<div class="tabs__nav tabs__nav-center">
+					<div class="tabs__nav-item active" data-pathtab="tab-single-product-01">
+						<div class="tt-text">
+							Отзывы
+						</div>
+					</div>
+				</div>
+				<div class="tabs__container">
+					<div class="singlepost__indent">
+						<div class="singlepost__indent">
+							<div class="singlepost__indent__title">{{len_r}} отзывов</div>
+							<div class="tt-comments__item">
+								
+								<div class="tt-listing row">
+									{%for rev in reviews%}
+									<div class="tt-comments__level-01 tt-comments">
+										<div>
+											{%if not rev.user.image%}
+											<img src="{% static 'assets/images/футбол.png' %}"
+												style="border-radius: 50%; width: 86px; height: 86px; object-fit: cover;">
+											{%else%}
+
+											<img src="{{rev.user.image.url}}"
+												style="border-radius: 50%; width: 86px; height: 86px; object-fit: cover;">
+											{%endif%}
+										</div>
+										<div class="tt-comments__content">
+
+											<div class="tt-comments__title">
+												{{rev.user.username}}
+											</div>
+											<div class="tt-comments__info">
+												{{rev.time_c}}
+											</div>
+											<div class="tt-comments__text">
+												{{rev.text}}
+											</div>
+										</div>
+										<div class="">
+											{% for star in rev_len%}
+											{%if star > rev.rating%}
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+												<path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+											</svg>
+											
+											{%else%}
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="yellow" viewBox="0 0 16 16">
+												<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+											</svg>
+											
+											{%endif%}
+											{%endfor%}
+										</div>
+									</div>
+									{%endfor%}
+								</div>
+								
+								{%include 'pagin/pagination.html'%}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /tabs -->
+		</div>
+	</div>
+</div>
+{% endblock main %}

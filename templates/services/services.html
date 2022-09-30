@@ -1,0 +1,118 @@
+{% extends "body/body.html" %}
+{% block main %}
+{%load static%}
+<div class="section-indent nomargin section__fluid tt-position__relative mobile-nopadding">
+        <div class="tt-iconbox-subpages">
+                {%include 'body/socal.html'%}
+        </div>
+        <div class="tt-pagetitle">
+                <div class="tt-pagetitle__img">
+                        <picture>
+                                <source srcset="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.webp' %}"
+                                        type="image/webp">
+                                <source srcset="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.jpg' %}"
+                                        type="image/jpg">
+                                <img src="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.jpg' %}" alt="">
+                        </picture>
+                </div>
+                <div class="tt-pagetitle__wrapper">
+                        <div class="tt-pagetitle__title">
+                                Сервис
+                        </div>
+                </div>
+        </div>
+</div>
+<div id="tt-pageContent">
+        <br><br><br>
+        <div class="blocktitle blocktitle__center">
+                <div class="blocktitle__title">Наши услуги</div>
+        </div>
+        <div class="section-indent">
+                <div class="container">
+
+                        <div class="row">
+
+                                {%for s in services%}
+                                <div class="col-md-4">
+                                        <div class="box-info04">
+                                                <div class="box-info04__img">
+                                                        <picture>
+                                                                <source srcset="{{s.image.url}}"
+                                                                        data-srcset="{{s.image.url}}" type="image/webp">
+                                                                <source srcset="{{s.image.url}}"
+                                                                        data-srcset="{{s.image.url}}" type="image/jpg">
+                                                                <img src="{{s.image.url}}" data-src="{{s.image.url}}"
+                                                                        class=" lazyloaded" alt="">
+                                                        </picture>
+                                                </div>
+                                                <div class="box-info04__content" data-value="1">
+                                                        <h6 class="box-info04__title">{{s.title}}</h6>
+                                                        <p>{{s.desctiption}}</p>
+                                                        <a href="{%url 'service' s.id%}" class="tt-link">Узнать подробнее<svg
+                                                                        xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                        height="16" fill="currentColor"
+                                                                        class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                                        <path fill-rule="evenodd"
+                                                                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                                                                </svg></a>
+                                                </div>
+                                        </div>
+                                </div>
+                                {%endfor%}
+                        </div>
+                </div>
+        </div>
+        <div class="section-inner03">
+                <div class="container">
+                        <div class="row align-items-center">
+                                <div class="col-md-6">
+                                        <picture>
+                                                <source srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAicAAAHXAQMAAABd5GgaAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAADZJREFUeNrtwQENAAAAwiD7p7bHBwwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDmAygABDKyJqgAAAABJRU5ErkJggg=="
+                                                        data-srcset="{% static 'assets/images/img-03/img-03.webp'%} "
+                                                        type="image/webp">
+                                                <source srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAicAAAHXAQMAAABd5GgaAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAADZJREFUeNrtwQENAAAAwiD7p7bHBwwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDmAygABDKyJqgAAAABJRU5ErkJggg=="
+                                                        data-srcset="{% static 'assets/images/img-03/img-03.png'%}  "
+                                                        type="image/png">
+                                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAicAAAHXAQMAAABd5GgaAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAADZJREFUeNrtwQENAAAAwiD7p7bHBwwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDmAygABDKyJqgAAAABJRU5ErkJggg=="
+                                                        data-src="{% static 'assets/images/img-03/img-03.png'%} "
+                                                        class="lazyload" alt="">
+                                        </picture>
+                                </div>
+                                <div class="divider-size-md tt-visible__table">
+                                </div>
+                                <div class="col-md-6">
+                                        <div class="blocktitle">
+                                                <div class="blocktitle__subtitle">
+                                                        Reliable, convenient, professional
+                                                </div>
+                                                <div class="blocktitle__title">
+                                                        You Can Trust Our Technicians Because:
+                                                </div>
+                                        </div>
+                                        <ul class="tt-list">
+                                                <li>
+                                                        Fully background checked for your peace of mind.
+                                                </li>
+                                                <li>
+                                                        Neat, clean and uniformed for safety and security.
+                                                </li>
+                                                <li>
+                                                        Knowledgeable, experienced and skilled.
+                                                </li>
+                                                <li>
+                                                        Rigorously trained in customer service.
+                                                </li>
+                                                <li>
+                                                        Fully licensed, bonded and insured.
+                                                </li>
+                                                <li>
+                                                        Friendly, helpful, and reliable.
+                                                </li>
+                                        </ul>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>
+
+{% endblock main %}

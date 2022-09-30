@@ -1,0 +1,91 @@
+{% extends "body/body.html" %}
+{% block main %}
+{%load static%}
+<!-- <div class="container">
+  {%if user.id == owner%}
+  <form method="post">
+      {%csrf_token%}
+      {{form.as_p}}
+      <button type="submit" class="tt-btn tt-btn02">
+          <span class="tt-btn__text" data-effect="Регистрация">
+                  Регистрация
+          </span>
+          <span class="tt-btn__icon icon-142042">
+          </span>
+  </button>
+  </form>
+
+</div>  -->
+
+<!-- sdssssssssssssssssssssssssssssssssssssssssssss -->
+
+
+<section class="vh-100 bg-image" 
+  style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');" >
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-1000" >
+      <div class="row d-flex justify-content-center align-items-center h-100" style="margin-top: 400px;">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Изменить профиль</h2>
+
+              <form method="post" enctype="multipart/form-data" >
+                {%csrf_token%}
+                <div>
+                  {%if not owner_user.image%}
+                    <center><img src="{% static 'assets/images/футбол.png' %}" alt="" style="border-radius: 50%; width: 200px; height: 200px; object-fit: cover;"></center> 
+                    
+                    
+                  {%else%}
+                    <center><img src="{{ owner_user.image.url }}" alt="" style="border-radius: 50%; width: 200px; height: 200px; object-fit: cover;"></center> 
+                    {%endif%}
+                </div>
+                <br>
+                <br>
+
+                <div class="form-outline mb-4">
+                      <label class="form-label" for="form3Example1cg">Аватар:</label>
+                      {{form.image}}
+                </div>
+                    
+                
+                <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example1cg">Имя пользователя:</label>
+                        {{form.username}}
+                </div>
+
+                <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example1cg">Адрес электронной почты:</label>
+                        {{form.email}}
+                </div>
+
+                <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example1cg">Номер:</label>
+                        {{form.phone}}
+                </div>
+
+                <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example1cg">Адрес:</label>
+                        {{form.address}}
+                </div>
+
+
+                <div class="d-flex justify-content-center">
+                  <button type="submit"
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Обновить</button>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 
+<div style="height: 300px;"></div>
+{%endif%} 
+
+{% endblock main %}

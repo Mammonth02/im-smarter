@@ -1,0 +1,90 @@
+<div class="col-md-4 col-lg-4 col-xl-5 leftColumn aside toggle__aside" id="js-toggle__aside">
+    <div class="toggle__aside-cloe icon-1828778" id="js-aside-close">
+    </div>
+    <div class="shop-aside__wrapper">
+        <div class="shop-aside__item">
+            <div class="shop-aside__title">
+                Катигории
+            </div>
+            <div class="shop-aside__content">
+                <ul class="tt-list-info">
+                    {%for c in cat%}
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                        </svg>
+                        <a href="{%url 'shop_cat' c.id%}"><span class="text-underline">{{c.title}}</span></a>
+                    </li>
+                    {%endfor%}
+                </ul>
+            </div>
+        </div>
+        <div class="">
+            <div class="shop-aside__title" style="padding-bottom: 0px;">
+                Сортировка
+            </div>
+            <br>
+            <div class="">
+
+                <form action="{%url 'filter' cat_id%}" method="get">
+
+                    {%for i, v in view.get_sorted.items%}
+
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="sorted" id="exampleRadios2" value="{{v}}"
+                                checked>
+                            <label class="form-check-label" for="exampleRadios2">
+                                {{i}}
+                            </label>
+                        </div>
+
+                    </div>
+
+
+                    {%endfor%}
+
+
+            </div>
+        </div>
+        <br>
+        <div class="shop-aside__item">
+            <br>
+
+            <div class="shop-aside__title" style="padding-bottom: 0px;">
+                Цена
+            </div>
+            <div class="shop-aside__content">
+                <div class="tt-slider-price">
+
+                    <div class="slider-value-row" style="margin-top: 0px;">
+
+                        <!-- <div id="slider-snap-value-lower" class="slider-value"  name="max_p" value="1000">
+                                                                                                        </div> -->
+                        от: <div>
+                            <input type="text" class="form-control" placeholder="Минимум" name="max_p" value="{{max_p}}">
+                        </div>
+
+                        <!-- <div id="slider-snap-value-upper" class="slider-value" name="min_p" value="1">
+                                                                                                        </div> -->
+                        <br>
+                        <br>
+                        до: <div>
+                            <input type="text" class="form-control" placeholder="Максимум" name="min_p" value="{{min_p}}">
+                        </div>
+
+                    </div>
+                    <button type="submit" class="tt-btn tt-btn01"><span>Поиск </span><svg
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                        </svg><span class="tt-btn__icon icon-142042"></span></button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

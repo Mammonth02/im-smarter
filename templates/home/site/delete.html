@@ -1,0 +1,20 @@
+{% extends "body/body.html" %}
+{% block main %}
+{%load static%}
+
+<div class="container">
+<form action="" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    {{form.as_p }}
+
+    <br>
+    <br>
+    <br>
+    <p>Вы действительно хотите это удалить:</p>
+    <button type="submit">Удалить</button>
+</form>
+</div>
+
+
+
+{% endblock main %}

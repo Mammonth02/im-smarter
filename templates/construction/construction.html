@@ -1,0 +1,176 @@
+{% extends "body/body.html" %}
+{% block main %}
+{%load static%}
+
+<div class="section-indent nomargin section__fluid tt-position__relative mobile-nopadding">
+    <div class="tt-iconbox-subpages">
+        {%include 'body/socal.html'%}
+    </div>
+    <div class="tt-pagetitle">
+        <div class="tt-pagetitle__img">
+            <picture>
+                <source srcset="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.webp'%}" type="image/webp">
+                <source srcset="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.jpg'%}" type="image/jpg">
+                <img src="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.jpg'%}" alt="">
+            </picture>
+        </div>
+        <div class="tt-pagetitle__wrapper">
+            <div class="tt-pagetitle__title">
+                Заказать строительство бассейна
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tt-pageContent">
+    <div class="section-indent">
+        <div class="tt-bg bg-services02-01 lazyload" data-bg="images/background-marker/bg-services02-01.png">
+        </div>
+        <div class="container">
+            <div class="row-custom-services">
+                <div class="col-custom">
+                    <div class="services-item__img">
+                        <picture>
+                            <source srcset="{% static 'assets/images/IMG_1190-1.webp'%}" type="image/webp">
+                            <source srcset="{{service.image.url}}" type="image/jpg">
+                            <img src="{{service.image.url}}" data-src="{{service.image.url}}" class="lazyload" alt="">
+                        </picture>
+                    </div>
+                    <div class="services-item__content">
+                        <div class="blocktitle">
+
+                            <div class="blocktitle__title">
+                                Закажите бассейн
+                            </div>
+                        </div>
+                        <p>
+                            Бассейн это круто, будете хвастатся перед друзями, и устраевать
+                            акводискатеки
+                        </p>
+                        <h6 class="tt-subtitle-01 tt-subtitle-01__top02">
+                            Наши клиенты:
+                        </h6>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="tt-list">
+                                    <li>
+                                        Hotels &amp; Resorts
+                                    </li>
+                                    <li>
+                                        Municipal &amp; Public Pools
+                                    </li>
+                                    <li>
+                                        YMCA / Boys &amp; Girls Clubs
+                                    </li>
+                                    <li>
+                                        Colleges &amp; Universities
+                                    </li>
+                                    <li>
+                                        Private Schools &amp; High Schools
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="tt-list">
+                                    <li>
+                                        Spas &amp; Retreats
+                                    </li>
+                                    <li>
+                                        Camp Grounds
+                                    </li>
+                                    <li>
+                                        Country Clubs &amp; Private Clubs
+                                    </li>
+                                    <li>
+                                        Community Centers
+                                    </li>
+                                    <li>
+                                        Apartment Buildings
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <h6 class="tt-subtitle-01 tt-subtitle-01__top02">
+                            Наши работы:
+                        </h6>
+                        <div class="row tt-col-img__inner-small tt-gallery__wrapper">
+                            {%for img in images%}
+                            <div class="col-6 col-lg-3">
+                                <a href="{{img.image.url}}" class="tt-gallery" data-modal="gallery">
+                                    <picture>
+                                        <source
+                                            srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                            data-srcset="{{img.image.url}}" type="image/webp">
+                                        <source
+                                            srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                            data-srcset="images/services/services-img04.jpg" type="image/jpg"><img
+                                            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                                            data-src="images/services/services-img04.jpg" class="lazyload" alt="">
+                                    </picture>
+                                </a>
+                            </div>
+                            {%endfor%}
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        
+                    </div>
+                </div>
+                {%include 'services/site_bar.html'%}
+            </div>
+        </div>
+        <div class="container">
+            {%if request.user.is_authenticated%}
+            <section class="vh-100 bg-image"
+            style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+            <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+                <div class="container h-1000">
+                    <div class="row d-flex justify-content-center align-items-center h-100"
+                        style="margin-top: 400px;">
+                        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                            <div class="card" style="border-radius: 15px;">
+                                <div class="card-body p-5">
+                                    <h2 class="text-uppercase text-center mb-5">Заказать
+                                    </h2>
+    
+                                    <form action="" method="post" >
+                                        {%csrf_token%}
+                                        {{form.as_p}}
+                                        <button type="submit" class="tt-btn tt-btn01">
+                                            <span class="tt-btn__text" data-effect="Заказать бассейн">
+                                                Заказать бассейн -
+                                            </span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                                            </svg>
+                                        </button>
+                                    </form>
+    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <div style="height: 300px;"></div>
+            {%else%}
+            <br>
+            <br>
+            <br>
+            <div class="singlepost__indent__title">чтобы заказать нужно <a
+                    href="/profile/registration/">зарегестрироватся</a> или <a
+                    href="/profile/login/">войти</a> </div>
+            {%endif%}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock main %}

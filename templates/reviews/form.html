@@ -1,0 +1,9 @@
+<form  method="post" action="">
+    {%csrf_token%}
+    {{form.as_p }}
+    <button class="tt-btn tt-btn02" type="submit">
+            <span class="tt-btn__text" data-effect="Оставить отзыв">Оставить отзыв</span>
+            <span class="tt-btn__icon icon-142042"></span>
+    </button>
+    <div class="tt-modal-message">Отзыв оставлен</div>
+</form>
