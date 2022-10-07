@@ -20,6 +20,8 @@ class Basket(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Товар')
     quantity = models.PositiveIntegerField(verbose_name='Количество', null=True)
+    status = models.BooleanField(default=False, verbose_name='Заказ')
+
 
     class Meta:
         verbose_name = 'Корзина'
@@ -27,3 +29,8 @@ class Basket(models.Model):
 
     def __str__(self):
         return f'{self.product}'
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Заказчик')
+    basket = models.ManyToManyField(Basket)
+    time_create = models.DateTimeField(auto_now_add=True)

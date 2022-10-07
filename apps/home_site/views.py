@@ -1,6 +1,8 @@
 
 from django.views import generic
 from django.shortcuts import redirect
+
+from apps.users.models import Order
 from .forms import *
 from django.urls import reverse_lazy
 
@@ -37,6 +39,11 @@ class UpdateInfo(generic.UpdateView):
 class Admin(generic.ListView):
     model = SiteInfo 
     template_name = 'home/site/admin.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['orders'] = Order.objects.all()
+        return context
 
 class CreateProduct(generic.CreateView):
     form_class = CreateProductForm

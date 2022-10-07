@@ -14,8 +14,7 @@ import os
 from pathlib import Path
 
 from pon import pon
-
-from apps.home_site.models import SiteInfo
+# from apps.home_site.models import SiteInfo
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -171,7 +170,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True 
 EMAIL_PORT = 587
 
-EMAIL_HOST_USER = SiteInfo.objects.get(id = 1).email
+EMAIL_HOST_USER = 'mammonth02@gmail.com'
 EMAIL_HOST_PASSWORD = pon
 
 

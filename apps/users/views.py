@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.views import generic
 from django.urls import reverse_lazy
-from apps.users.models import Basket, User
+from apps.users.models import Basket, Order, User
 from apps.home_site.tasks import send_message
 from .forms import *
 from django.contrib.auth.views import LoginView
@@ -25,6 +25,7 @@ class LoginView(LoginView):
     def get_success_url(self):
         return reverse_lazy('home')
 
+
 def logout_user(request):
     logout(request)
     return redirect('login')
@@ -47,7 +48,7 @@ class BasketViewList(generic.ListView):
         return context 
 
     def get_queryset(self):
-        products = Basket.objects.filter(user_id = self.request.user.id)
+        products = Basket.objects.filter(user_id = self.request.user.id, status = False)
         return products
 
     def post(self, request, *args, **kwargs):
@@ -78,7 +79,14 @@ class BasketViewList(generic.ListView):
             send_message.delay([self.request.user.email], text)
             send_message.delay(admins, text_for_admins)
 
-            Basket.objects.filter(user_id = self.request.user.id).delete()
+            
+            buy = Basket.objects.filter(user_id = self.request.user.id, status = False)
+            order = Order.objects.create(user = self.request.user)
+            order.save()
+            for i in buy:
+                i.order_set.add(order)
+            Basket.objects.filter(user_id = self.request.user.id, status = False).update(status = True)
+
 
             return redirect('basket')
 
@@ -99,3 +107,14 @@ class UpdateProfile(generic.UpdateView):
     def form_valid(self, form):
         self.object = form.save()
         return redirect('update_profile', self.kwargs['pk'])
+
+class DeleteOrder(generic.DeleteView):
+    model = Order
+    template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('admin')
+    
+    def form_valid(self, form):
+        order = Order.objects.get(id = self.kwargs['pk'])
+        Basket.objects.filter(user = order.user, status = True, order = order).delete()
+        self.object.delete()
+        return redirect('admin')

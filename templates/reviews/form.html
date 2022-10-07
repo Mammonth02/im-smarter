@@ -1,9 +1,24 @@
 <form  method="post" action="">
     {%csrf_token%}
-    {{form.as_p }}
+    {% for radio in form.rating %}
+    <tr>
+        <td>
+            {%if radio.choice_label == 1 or radio.choice_label == 2 or radio.choice_label == 3 or radio.choice_label == 4 or radio.choice_label == 5%}
+                <i class="bi bi-star">{{ radio }} </i>
+                &nbsp;
+
+            {%endif%}
+        </td>
+    </tr>
+    {% endfor %}
+    <br>
+    <br>
+    {{form.text }}
+    <br>
     <button class="tt-btn tt-btn02" type="submit">
             <span class="tt-btn__text" data-effect="Оставить отзыв">Оставить отзыв</span>
             <span class="tt-btn__icon icon-142042"></span>
     </button>
+    
     <div class="tt-modal-message">Отзыв оставлен</div>
 </form>

@@ -47,8 +47,6 @@
                             <div class="tt-filters__info">
                                 Отабражено {{fiter_len}} из {{all_len}} товаров
                             </div>
-                            
-                            
                         </div>
                     </div>
                     <form  class="tt-newsletter__form"   method="get" action="{% url 'search' cat_id%}">
@@ -64,40 +62,50 @@
                             Form sent successfully
                         </div>
                     </form>
+                    <br>
+                    <br>
                     <div class="tt-listing row">
-                        {%for p in products%}
-                        <div class="col-6 col-md-4 tt-listing__col-item">
-                            <div class="tt-product">
-                                <div class="tt-product__img">
-                                    <a href="{%url 'single_page' p.id%}" class="tt-img">
-                                        <img src="{{p.image.url}}" alt="">
-                                        <div class="btn-addtocart">Подробнее
-                                            <span class="tt-btn__icon icon-142042">
+                        {%if not products and not q %}
+                            <center><p>Нечего не найдено!</p></center>
+                        {%elif not products and cat_id == 0%}
+                            <center><p>По запросу "{{q}}" нечего не найдено!</p></center>
+                        {%elif not products%}
+                            <center><p>По запросу "{{q}}" в катигории "{{categ.title}}" нечего не найдено!</p></center>
+                        {%else%}
+                            {%for p in products%}
+                            <div class="col-6 col-md-4 tt-listing__col-item">
+                                <div class="tt-product">
+                                    <div class="tt-product__img">
+                                        <a href="{%url 'single_page' p.id%}" class="tt-img">
+                                            <img src="{{p.image.url}}" alt="">
+                                            <div class="btn-addtocart">Подробнее
+                                                <span class="tt-btn__icon icon-142042">
 
-                                            </span>
-                                        </div>
-                                    </a>
-                                    <div class="tt-label-location">
-                                        <div class="tt-label-new">
-                                            {%if p.status == True%}
-                                            На складе
-                                            {%else%}
-                                            Нету
-                                            {%endif%}
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <div class="tt-label-location">
+                                            <div class="tt-label-new">
+                                                {%if p.status == True%}
+                                                На складе
+                                                {%else%}
+                                                Нету
+                                                {%endif%}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="tt-product__description">
-                                    <h2 class="tt-product__title">
-                                        <a href="shop-item.html">{{p.title}}</a>
-                                    </h2>
-                                    <div class="tt-product__price">
-                                        {{p.price}}сом
+                                    <div class="tt-product__description">
+                                        <h2 class="tt-product__title">
+                                            <a href="shop-item.html">{{p.title}}</a>
+                                        </h2>
+                                        <div class="tt-product__price">
+                                            {{p.price}}сом
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {%endfor%}
+                            {%endfor%}
+                        {%endif%}
                     </div>
                     {%include 'pagin/pagination.html'%}
                 </div>

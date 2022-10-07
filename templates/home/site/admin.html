@@ -2,6 +2,106 @@
 {% block main %}
 {%load static%}
 
+<div class="section-indent nomargin section__fluid tt-position__relative mobile-nopadding">
+    <div class="tt-iconbox-subpages">
+        {%include 'body/socal.html'%}
+    </div>
+    <div class="tt-pagetitle">
+        <div class="tt-pagetitle__img">
+            <picture>
+                <source srcset="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.webp' %}" type="image/webp">
+                <source srcset="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.jpg' %}" type="image/jpg">
+                <img src="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.jpg' %}" alt="">
+            </picture>
+        </div>
+        <div class="tt-pagetitle__wrapper">
+            <div class="tt-pagetitle__title">
+                Админка
+            </div>
+            <ul class="tt-breadcrumbs">
+                <li><a href="">Товар</a>
+                    <ul>
+                        <li><a href="{%url 'create_cat_product'%}">Добавить катигорию товара</a></li>
+                        <li><a href="{%url 'create_product'%}">Добавить товар</a></li>
+                    </ul>
+                </li>
+                <li><a href="">Строительство бассейнов</a>
+                    <ul>
+                        <li><a href="{%url 'create_cat_pool'%}">Добавить тип бассейна</a></li>
+                        <li><a href="{%url 'create_pool_additionally'%}">Добавить дополнительно бассейна</a></li>
+                        <li><a href="{%url 'create_pool_decoration'%}">Добавить отдеку бассейна</a></li>
+                    </ul>
+                </li>
+                <li><a href="{%url 'create_service_type'%}">Сервис</a></li>
+                <li><a href="{%url 'update_info' '1'%}">Инфо сайта</a></li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="tt-pageContent">
+    <br><br><br>
+    <div class="blocktitle blocktitle__center">
+        <div class="blocktitle__title">Заказы</div>
+    </div>
+    <div class="section-indent">
+        <div class="container">
 
+            <div class="row">
+
+                {%for order in orders%}
+                <div class="col-md-4">
+                    <div class="box-info04">
+                        <div class="box-info04__img">
+                            <picture>
+                                <source srcset="{{s.image.url}}" data-srcset="{{s.image.url}}" type="image/webp">
+                                <source srcset="{{s.image.url}}" data-srcset="{{s.image.url}}" type="image/jpg">
+                                <img src="{{s.image.url}}" data-src="{{s.image.url}}" class=" lazyloaded" alt="">
+                            </picture>
+                        </div>
+                        <div class="box-info04__content" data-value="1">
+                            <h10 class="box-info04__title">
+                                Заказчик: <a href="">{{order.user}}</a> <br>
+                                Номер: <a href="tel:{{order.user.phone}}" >{{order.user.phone}}</a> <br>
+                                Почта: <a target = "_ blank" href="mailto:{{order.user.email}}?subject=Потверждение заказа">{{order.user.email}}</a> <br>
+                                Время заказа: {{order.time_create}} <br>
+                            </h10>
+                            <br>
+                            <p>
+                                {%for o in order.basket.all%} 
+                                {{o}}:   <b>{{o.quantity}}-штук</b>
+                                <br>
+                                <br>
+                                {%endfor%}
+                            </p>
+                            <form action="" method="post">
+                                <a class="btn btn-danger" href="{%url  'delete_order' order.id%}" role="button">Удалить</a> 
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                {%csrf_token%}
+                                <button type="button" class="btn btn-success">Потвердить</button>
+                            </form>
+
+                            
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock main %}

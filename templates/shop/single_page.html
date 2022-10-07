@@ -194,7 +194,7 @@
 							<div class="singlepost__indent__title">{{len_r}} отзывов</div>
 							<div class="tt-comments__item">
 								
-								<div class="tt-listing row">
+								<div class="tt-listing row" >
 									{%for rev in reviews%}
 									<div class="tt-comments__level-01 tt-comments">
 										<div>
@@ -234,10 +234,13 @@
 											{%endif%}
 											{%endfor%}
 										</div>
+
+										{% if request.user.is_staff or request.user == rev.user%}
+										<a style="margin-left: 500px;" class="btn btn-danger" href="{%url  'delete_rev' rev.id id%}" role="button">Удалить</a>
+										{%endif%}
 									</div>
 									{%endfor%}
 								</div>
-								
 								{%include 'pagin/pagination.html'%}
 							</div>
 						</div>

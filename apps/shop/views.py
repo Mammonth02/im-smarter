@@ -60,7 +60,7 @@ class SingleProduct(CreateReviewsView, generic.DetailView):
 
 
 
-        paginator = Paginator(reviews, 1)
+        paginator = Paginator(reviews, 5)
         page_number = self.request.GET.get('page')
         context['reviews'] = paginator.get_page(page_number)
         context['page_obj'] = paginator.get_page(page_number)
@@ -80,12 +80,12 @@ class ShopCat(generic.ListView):
         context = super().get_context_data(**kwargs)
 
         context['cat'] = Category.objects.all()
-        context['cat_id'] = self.kwargs['id']
+        cat_id = self.kwargs['id']
+        # if cat_id != 0:
+        #     context['categ'] = Category.objects.get(pk = cat_id)
+        context['cat_id'] = cat_id
         context['fiter_len'] = len(Product.objects.all())
         context['all_len'] = len(Product.objects.all())
-
-
-
 
         return context 
 
@@ -216,3 +216,5 @@ class DeleteProduct(generic.DeleteView):
     def form_valid(self, form):
         self.object.delete()
         return redirect('shop_cat', '0')
+
+        

@@ -16,7 +16,6 @@ class Category(MPTTModel):
 
     def __str__(self):
         return f'{self.title}'
-
 class Product(models.Model):
     title = models.CharField(max_length=126, verbose_name='Название')
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Катигория')
@@ -39,8 +38,6 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.title}'
-
-
 class ImagesForProducts(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='product_image/')
@@ -57,3 +54,4 @@ class ImagesForProducts(models.Model):
     class Meta:
         verbose_name_plural = 'Картинки'
         verbose_name= 'Картинка'
+
