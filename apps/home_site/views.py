@@ -1,8 +1,9 @@
-
 from django.views import generic
 from django.shortcuts import redirect
 
-from apps.users.models import Order
+from apps.home_site.tasks import send_message
+
+from apps.users.models import Basket, Order
 from .forms import *
 from django.urls import reverse_lazy
 
@@ -42,8 +43,17 @@ class Admin(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['orders'] = Order.objects.all()
+        context['orders'] = Order.objects.filter(active = False)
+        context['services'] = Service.objects.filter(active = False)
         return context
+    
+    def post(self, request, *args, **kwargs):
+        if request.method=='POST' and 'active_buy' in request.POST:
+            Order.objects.filter(id = request.POST.get('order_id')).update(active = True)
+            return redirect('admin')
+        elif request.method=='POST' and 'active_ser' in request.POST:
+            Service.objects.filter(id = request.POST.get('service_id')).update(active = True)
+            return redirect('admin')
 
 class CreateProduct(generic.CreateView):
     form_class = CreateProductForm
@@ -90,3 +100,39 @@ class DeleteImage(generic.DeleteView):
     def form_valid(self, form):
         self.object.delete()
         return redirect('update_info', '1')
+
+class DeleteOrder(generic.DeleteView):
+    model = Order
+    template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('admin')
+    
+    def form_valid(self, form):
+        order = Order.objects.get(id = self.kwargs['pk'])
+        Basket.objects.filter(user = order.user, status = True, order = order).delete()
+        self.object.delete()
+        return redirect('admin')
+
+class DeleteOrderUser(generic.DeleteView):
+    model = Order
+    template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('admin')
+    
+    def form_valid(self, form):
+        order = Order.objects.get(id = self.kwargs['pk'])
+        Basket.objects.filter(user = order.user, status = True, order = order).delete()
+        self.object.delete()
+        return redirect('detail_user', self.kwargs['id'])
+
+class DeleteServiceUser(generic.DeleteView):
+    model = Service
+    template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('admin')
+    
+    def form_valid(self, form):
+        self.object.delete()
+        return redirect('detail_user', self.kwargs['id'])
+
+class DeleteService(generic.DeleteView):
+    model = Service
+    template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('admin')

@@ -1,0 +1,199 @@
+{% extends "body/body.html" %}
+{% block main %}
+{%load static%}
+
+{%if user.is_staff%}
+<style>
+    body {
+        margin-top: 20px;
+        color: #1a202c;
+        text-align: left;
+        background-color: #e2e8f0;
+    }
+
+    .main-body {
+        padding: 15px;
+    }
+
+    .card {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid rgba(0, 0, 0, .125);
+        border-radius: .25rem;
+    }
+
+    .card-body {
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1rem;
+    }
+
+    .gutters-sm {
+        margin-right: -8px;
+        margin-left: -8px;
+    }
+
+    .gutters-sm>.col,
+    .gutters-sm>[class*=col-] {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    .mb-3,
+    .my-3 {
+        margin-bottom: 1rem !important;
+    }
+
+    .bg-gray-300 {
+        background-color: #e2e8f0;
+    }
+
+    .h-100 {
+        height: 100% !important;
+    }
+
+    .shadow-none {
+        box-shadow: none !important;
+    }
+</style>
+
+<div class="container">
+    <div class="main-body">
+
+        <!-- Breadcrumb -->
+        <!-- /Breadcrumb -->
+
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="{%if self_user.image%}{{self_user.image.url}}{%else%}{% static 'assets/images/футбол.png' %}{%endif%}"
+                                alt="Admin" class="rounded-circle" width="300" height="300" style="object-fit: cover;">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Имя</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{self_user.username}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Почта</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{self_user.email}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Номер</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{self_user.phone}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Адрес</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{self_user.address}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row gutters-sm">
+                    {%for order in orders%}
+                    <div class="col-sm-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">
+                                        <h4><b>Заказ</b></h4>
+                                    </i></h6>
+                                {%for o in order.basket.all%}
+                                <small>{{o}}: <b>{{o.quantity}}-штук</b></small>
+                                <hr>
+                                {%endfor%}
+                                <form action="" method="post">
+                                    <a class="btn btn-danger" href="{%url  'delete_order_user' order.id order.user.id%}"
+                                        role="button">Удалить</a>
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    {%csrf_token%}
+                                    <input type="hidden" name="order_id" value="{{order.id}}">
+                                    <button type="submit" name="received" class="btn btn-success">Потвердить
+                                        получение</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+
+                <div class="row gutters-sm">
+                    {%for order in services%}
+                    <div class="col-sm-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">
+                                        <h4><b>Услуга</b></h4>
+                                    </i></h6>
+                                <p>
+
+                                    <b>Kатигория</b> : {{order.category}};
+                                    <hr>
+                                    <b>Собшение</b>: {{order.message}};
+                                </p>
+
+
+                                    <a class="btn btn-danger" href="{%url  'delete_service_user' order.id self_user.id%}"
+                                        role="button">Удалить</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{%endif%}
+
+{% endblock main %}

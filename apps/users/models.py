@@ -23,6 +23,7 @@ class Basket(models.Model):
     status = models.BooleanField(default=False, verbose_name='Заказ')
 
 
+
     class Meta:
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзина'
@@ -34,3 +35,5 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Заказчик')
     basket = models.ManyToManyField(Basket)
     time_create = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False, verbose_name='Активность')
+    received = models.BooleanField(default=False, verbose_name='Получение')

@@ -15,5 +15,10 @@ urlpatterns = [
     path('create_pool_additionally', CreatePoolAdditionally.as_view(), name='create_pool_additionally'),
     path('create_pool_decoration', CreatePoolDecoration.as_view(), name='create_pool_decoration'),
     path('create_service_type', CreateServiceType.as_view(), name='create_service_type'),
+    path('delete_order/<int:pk>/', DeleteOrder.as_view(), name='delete_order'),
+    path('delete_service/<int:pk>/', DeleteService.as_view(), name='delete_service'),
+    path('delete_service_user/<int:pk>/<int:id>/', DeleteServiceUser.as_view(), name='delete_service_user'),
+    path('delete_order_user/<int:pk>/<int:id>/', DeleteOrderUser.as_view(), name='delete_order_user'),
+
 
 ]

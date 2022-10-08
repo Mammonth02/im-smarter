@@ -22,15 +22,18 @@ class Service(models.Model):
         (False, "Один раз"),
     )
 
-
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Заказчик')
     category = models.ForeignKey(ServiceType, on_delete=models.SET_NULL, null=True, verbose_name='Катигория')
     message = models.TextField(verbose_name='Коментарий')
+    active = models.BooleanField(default=False, verbose_name='Активность')
+    time_create = models.DateTimeField(auto_now_add=True, null=True)
+
 
 
     def __str__(self):
-        return f'{self.title}'
+        return f'{self.user}-{self.category}'
 
     class Meta:
         verbose_name_plural = 'Услуги'
         verbose_name= 'Услуга'
+

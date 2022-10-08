@@ -2,6 +2,7 @@
 {% block main %}
 {%load static%}
 
+{%if user.is_staff%}
 
 <section class="vh-100 bg-image"
     style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
@@ -32,6 +33,6 @@
 </section>
 <div style="height: 400px;"></div>
 
-
+{%endif%}
 
 {% endblock main %}

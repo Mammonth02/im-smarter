@@ -2,6 +2,8 @@
 {% block main %}
 {%load static%}
 
+{%if user.is_staff%}
+
 <div class="container">
 <form action="" method="post" enctype="multipart/form-data">
     {%csrf_token%}
@@ -37,6 +39,6 @@
 </form>
 </div>
 
-
+{%endif%}
 
 {% endblock main %}

@@ -1,8 +1,10 @@
 from django.views import generic
 from django.shortcuts import redirect
+from apps.services.forms import UpdateServiceTypeForm
 from apps.services.models import *
 from apps.users.models import User
 from apps.home_site.tasks import send_message
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -33,6 +35,17 @@ class ServiceView(generic.DetailView):
                 admins.append(i.email)
             text_for_admins = f"Здравствуйе, пользователь {self.request.user.username}-id: {self.request.user.id}; \n почта: {self.request.user.email} \n номер: {self.request.user.phone} \n \n \n Заказал услугу\n Катигория: {obj.category} \n Сообшение: {obj.message} "
             send_message.delay(admins, text_for_admins)
+
             return redirect('service', self.kwargs['id'])
 
+class UpdateServiceType(generic.UpdateView):
+    model = ServiceType
+    form_class = UpdateServiceTypeForm
+    template_name = 'services/update_service.html'
+    context_object_name = 'form'
+    success_url = reverse_lazy('services')
 
+class DeleteServiceType(generic.DeleteView):
+    model = ServiceType
+    template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('services')

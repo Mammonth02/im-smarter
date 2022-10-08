@@ -10,6 +10,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),
     path('basket/', BasketViewList.as_view(), name='basket'),
-    path('delete_order/<int:pk>/', DeleteOrder.as_view(), name='delete_order'),
+    path('list_users/', ListUsers.as_view(), name='list_users'),
+    path('detail_user/<int:id>/', DetailUser.as_view(), name='detail_user'),
 
 ]

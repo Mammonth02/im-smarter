@@ -19,8 +19,8 @@ class LoginUserForm(AuthenticationForm):
         model = User
         fields = ('username', 'password')
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Имя пользователя'}),
-            'password': forms.PasswordInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Пароль'}),
+            'username': forms.TextInput(attrs={'class': 'form-label', 'placeholder': 'Имя пользователя'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-label', 'placeholder': 'Пароль'}),
         }
 
 class CreateBasketForm(forms.ModelForm):

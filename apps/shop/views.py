@@ -195,8 +195,6 @@ class UpdateProduct(generic.UpdateView):
         context = super().get_context_data(**kwargs)
         context['images'] = ImagesForProducts.objects.filter(product = self.kwargs['pk'])
         context['id'] = self.kwargs['pk']
-
-
         return context
 
 class DeleteImageProduct(generic.DeleteView):
@@ -217,4 +215,3 @@ class DeleteProduct(generic.DeleteView):
         self.object.delete()
         return redirect('shop_cat', '0')
 
-        
