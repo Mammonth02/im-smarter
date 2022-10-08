@@ -45,6 +45,7 @@ class Admin(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['orders'] = Order.objects.filter(active = False)
         context['services'] = Service.objects.filter(active = False)
+        context['constructions'] = Pool.objects.filter(active = False)
         return context
     
     def post(self, request, *args, **kwargs):
@@ -54,7 +55,9 @@ class Admin(generic.ListView):
         elif request.method=='POST' and 'active_ser' in request.POST:
             Service.objects.filter(id = request.POST.get('service_id')).update(active = True)
             return redirect('admin')
-
+        elif request.method=='POST' and 'active_pool' in request.POST:
+            Pool.objects.filter(id = request.POST.get('pool_id')).update(active = True)
+            return redirect('admin')
 class CreateProduct(generic.CreateView):
     form_class = CreateProductForm
     template_name = 'home/site/create_product.html'
@@ -136,3 +139,17 @@ class DeleteService(generic.DeleteView):
     model = Service
     template_name = 'home/site/delete.html'
     success_url = reverse_lazy('admin')
+
+class DeletePool(generic.DeleteView):
+    model = Pool
+    template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('admin')
+
+class DeletePoolUser(generic.DeleteView):
+    model = Pool
+    template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('admin')
+    
+    def form_valid(self, form):
+        self.object.delete()
+        return redirect('detail_user', self.kwargs['id'])

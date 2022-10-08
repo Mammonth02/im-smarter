@@ -66,6 +66,33 @@
     }
 </style>
 
+<div class="section-indent nomargin section__fluid tt-position__relative mobile-nopadding">
+	<div class="tt-iconbox-subpages">
+		{%include 'body/socal.html' %}
+	</div>
+	<div class="tt-pagetitle">
+		<div class="tt-pagetitle__img">
+			<picture>
+				<source srcset="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.webp' %}" type="image/webp">
+				<source srcset="images/pagetitle_bg/pagetitle_bg01.jpg" type="image/jpg">
+				<img src="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.jpg' %}" alt="">
+			</picture>
+		</div>
+		<div class="tt-pagetitle__wrapper">
+			<div class="tt-pagetitle__title">
+				Профиль 
+			</div>
+			<ul class="tt-breadcrumbs">
+				<li>
+					{{self_user.username}}
+				</li>
+			</ul>
+		</div>
+	</div>
+</div> 
+<br>
+<br>
+
 <div class="container">
     <div class="main-body">
 
@@ -134,6 +161,8 @@
                                 <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">
                                         <h4><b>Заказ</b></h4>
                                     </i></h6>
+                                <b>Дата</b> : {{order.time_create}};
+                                <hr>
                                 {%for o in order.basket.all%}
                                 <small>{{o}}: <b>{{o.quantity}}-штук</b></small>
                                 <hr>
@@ -172,15 +201,54 @@
                                         <h4><b>Услуга</b></h4>
                                     </i></h6>
                                 <p>
-
+                                    <b>Дата</b> : {{order.time_create}};
+                                    <hr>
                                     <b>Kатигория</b> : {{order.category}};
                                     <hr>
                                     <b>Собшение</b>: {{order.message}};
                                 </p>
 
 
-                                    <a class="btn btn-danger" href="{%url  'delete_service_user' order.id self_user.id%}"
-                                        role="button">Удалить</a>
+                                <a class="btn btn-danger" href="{%url  'delete_service_user' order.id self_user.id%}"
+                                    role="button">Удалить</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+
+
+                <div class="row gutters-sm">
+                    {%for order in constructions%}
+                    <div class="col-sm-6 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">
+                                        <h4><b>Стройка</b></h4>
+                                    </i></h6>
+                                <p>
+                                    <b>Дата</b> : {{order.time_create}};
+                                    <hr>
+                                    <b>Kатигория</b>: {{order.category}};
+                                    <hr>
+                                    <b>Ширина</b>: {{order.width}};
+                                    <hr>
+                                    <b>Длина</b>: {{order.length}};
+                                    <hr>
+                                    <b>Глубина</b>: {{order.depth}};
+                                    <hr>
+                                    <b>Отделка</b>: {{order.decoration}};
+                                    <hr>
+                                    <b>Дополнительно</b>: {%for i in order.additionally.all%}{{i}}; {%endfor%}
+                                    <hr>
+                                    <b>Собшение</b>: {{order.desctiption}};
+                                    <hr>
+                                </p>
+
+
+                                <a class="btn btn-danger" href="{%url  'delete_pool_user' order.id self_user.id%}"
+                                    role="button">Удалить</a>
 
                             </div>
                         </div>

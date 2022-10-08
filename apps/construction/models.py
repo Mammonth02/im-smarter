@@ -4,8 +4,6 @@ from django.db import models
 
 from apps.users.models import User
 
-# Create your models here.
-
 class PoolCat(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
     desctiption = models.TextField(verbose_name='Описание')
@@ -49,6 +47,8 @@ class Pool(models.Model):
     decoration = models.ForeignKey(Decoration, on_delete=models.SET_NULL, null=True, verbose_name='Отделка')
     additionally = models.ManyToManyField(Additionally, verbose_name='Дополнительно')
     desctiption = models.TextField(verbose_name='Коментарий')
+    active = models.BooleanField(default=False, verbose_name='Активность')
+    time_create = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return f'{self.user}'
@@ -56,4 +56,3 @@ class Pool(models.Model):
     class Meta:
         verbose_name_plural = 'Заказы'
         verbose_name= 'Заказ'
-

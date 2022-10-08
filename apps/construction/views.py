@@ -9,10 +9,6 @@ from django.shortcuts import redirect
 from apps.home_site.tasks import send_message
 
 
-
-
-# Create your views here.
-
 class cListView(generic.CreateView):
     form_class = CreatePoolForm
     template_name = 'construction/construction.html'
@@ -25,18 +21,16 @@ class cListView(generic.CreateView):
             self.object = form.save()
 
             pool = Pool.objects.get(id = instance.id)
-
             pool = [str(i).split(':') for i in pool.additionally.all()]
             
-
-            text = f"Здравствуйе, вы сделали заказ для строительства бассейна\n \n \n -тип: {instance.category} \n -ширина: {instance.width} \n -длина: {instance.length} \n -глубина: {instance.depth} \n -отделка: {instance.decoration} \n -дополнительно: {pool} \n -коментарий: {instance.desctiption} \n \n \n"
+            # text = f"Здравствуйе, вы сделали заказ для строительства бассейна\n \n \n -тип: {instance.category} \n -ширина: {instance.width} \n -длина: {instance.length} \n -глубина: {instance.depth} \n -отделка: {instance.decoration} \n -дополнительно: {pool} \n -коментарий: {instance.desctiption} \n \n \n"
             text_for_admins = f"Здравствуйе, пользователь {self.request.user.username}-id: {self.request.user.id}; заказал бассейн \n почта: {self.request.user.email} \n номер: {self.request.user.phone} \n \n \n -тип: {instance.category} \n -ширина: {instance.width} \n -длина: {instance.length} \n -глубина: {instance.depth} \n -отделка: {instance.decoration} \n -дополнительно: {pool} \n -коментарий: {instance.desctiption} \n \n \n"
             
             admins = []
             for i in User.objects.filter(is_staff = True):
                 admins.append(i.email)
 
-            send_message.delay([self.request.user.email], text)
+            # send_message.delay([self.request.user.email], text)
             send_message.delay(admins, text_for_admins)
 
         return redirect('construction')

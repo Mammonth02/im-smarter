@@ -1,9 +1,9 @@
-from multiprocessing import context
 from django.shortcuts import redirect
 from django.views import generic
 from django.urls import reverse_lazy
 from apps.services.models import Service
 from apps.users.models import Basket, Order, User
+from apps.construction.models import Pool
 from apps.home_site.tasks import send_message
 from .forms import *
 from django.contrib.auth.views import LoginView
@@ -125,6 +125,8 @@ class DetailUser(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context['orders'] = Order.objects.filter(user_id = self.kwargs['id'], active = True, received = False)
         context['services'] = Service.objects.filter(active = True)
+        context['constructions'] = Pool.objects.filter(active = True)
+
         return context
 
     def post(self, request, *args, **kwargs):

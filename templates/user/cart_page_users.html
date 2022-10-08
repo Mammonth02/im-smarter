@@ -77,6 +77,27 @@ a {
 }
 </style>
 
+<div class="section-indent nomargin section__fluid tt-position__relative mobile-nopadding">
+	<div class="tt-iconbox-subpages">
+		{%include 'body/socal.html' %}
+	</div>
+	<div class="tt-pagetitle">
+		<div class="tt-pagetitle__img">
+			<picture>
+				<source srcset="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.webp' %}" type="image/webp">
+				<source srcset="images/pagetitle_bg/pagetitle_bg01.jpg" type="image/jpg">
+				<img src="{% static 'assets/images/pagetitle_bg/pagetitle_bg01.jpg' %}" alt="">
+			</picture>
+		</div>
+		<div class="tt-pagetitle__wrapper">
+			<div class="tt-pagetitle__title">
+				Пользователи 
+			</div>
+		</div>
+	</div>
+</div> 
+<br>
+<br>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/css/boxicons.min.css" integrity="sha512-pVCM5+SN2+qwj36KonHToF2p1oIvoU3bsqxphdOIWMYmgr4ZqD3t5DjKvvetKhXGc/ZG5REYTT6ltKfExEei/Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
@@ -125,11 +146,6 @@ a {
         </div>
         {%endfor%}
         {%include 'pagin/pagination.html'%}
-    </div>
-    <div class="row g-0 align-items-center pb-4">
-        <div class="col-sm-6">
-            <div><p class="mb-sm-0">Showing 1 to 10 of 57 entries</p></div>
-        </div>
     </div>
 </div>
 
