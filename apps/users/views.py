@@ -133,3 +133,18 @@ class DetailUser(generic.DetailView):
         if request.method=='POST' and 'received' in request.POST:
             Order.objects.filter(id = request.POST.get('order_id')).update(received = True)
             return redirect('detail_user', self.kwargs['id'])
+
+class SearchUser(generic.ListView):
+    paginate_by = 12
+    template_name = 'user/cart_page_users.html'
+    context_object_name = 'users'
+
+
+    def get_queryset(self):
+            return User.objects.filter(username__icontains = self.request.GET.get('q'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['q'] = self.request.GET.get('q')
+        context['len_users'] = len(context['users'])
+        return context

@@ -12,5 +12,7 @@ urlpatterns = [
     path('basket/', BasketViewList.as_view(), name='basket'),
     path('list_users/', ListUsers.as_view(), name='list_users'),
     path('detail_user/<int:id>/', DetailUser.as_view(), name='detail_user'),
+    path('search_user/', SearchUser.as_view(), name='search_user'),
+
 
 ]

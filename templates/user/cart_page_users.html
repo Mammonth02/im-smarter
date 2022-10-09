@@ -103,50 +103,70 @@ a {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
 
 <div class="container">
-    <div class="row align-items-center">
-        <div class="col-md-6">
-            <div class="mb-3">
-                <br>
-                <h5 class="card-title">Список пользователей <span class="text-muted fw-normal ms-2">({{len_users}})</span></h5>
-            </div>
+    <form  class="tt-newsletter__form"   method="get" action="{% url 'search_user' %}">
+        <input type="text" name="q" class="tt-form__control"  placeholder="Поиск" value="{{q}}">
+        <button type="submit" class="tt-btn tt-btn02">
+            <span class="tt-btn__text" data-effect="Найти">
+                Найти
+            </span>
+            <span class="tt-btn__icon icon-142042">
+            </span>
+        </button>
+        <div class="tt-modal-message">
+            Form sent successfully
         </div>
-    </div>
-    <div class="row">
-        {%for user in users%}
-        <div class="col-xl-3 col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="dropdown float-end">
-                        <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="#">Edit</a><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Remove</a></div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div><img src="{%if user.image%}{{user.image.url}}{%else%}{% static 'assets/images/футбол.png' %}{%endif%}" alt="" class="avatar-md rounded-circle img-thumbnail" /></div>
-                        <div class="flex-1 ms-3">
-                            <h5 class="font-size-16 mb-1"><a href="#" class="text-dark">{{user.username}}</a></h5>
-                            <span class="badge badge-soft-success mb-0">
-                                {%if user.is_staff%}
-                                Администратор
-                                {%else%}
-                                Клиент
-                                {%endif%}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="mt-3 pt-1">
-                        <p class="text-muted mb-0"><i class="mdi mdi-phone font-size-15 align-middle pe-2 text-primary"></i>{{user.phone}}</p>
-                        <p class="text-muted mb-0 mt-2"><i class="mdi mdi-email font-size-15 align-middle pe-2 text-primary"></i>{{user.email}}</p>
-                        <p class="text-muted mb-0 mt-2"><i class="mdi mdi-google-maps font-size-15 align-middle pe-2 text-primary"></i>{{user.address}}</p>
-                    </div>
-                    <div class="d-flex gap-2 pt-4">
-                        <a class="btn btn-soft-primary btn-sm w-50" href="{% url 'detail_user' user.id %}" role="button" ><i class="bx bx-user me-1"></i>  Профиль</a>
-                        <a class="btn btn-primary btn-sm w-50r" href="" role="button" style="padding-left: 15px; padding-right: 15px;"><i class="bx bx-message-square-dots me-1"></i>  Написать</a>
-                    </div>
+    </form>
+    {% if not users %}
+    <br>
+    <br>
+        <center><h3>По запросу "{{q}}" не найдено, ни одного пользователя!</h3></center>
+    {%else%}
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <br>
+                    <h5 class="card-title">{%if q%}Найдено пользователей{%else%}Список пользователей{%endif%} <span class="text-muted fw-normal ms-2">({{len_users}})</span></h5>
                 </div>
             </div>
         </div>
-        {%endfor%}
-        {%include 'pagin/pagination.html'%}
-    </div>
+        <div class="row">
+            
+            {%for user in users%}
+            <div class="col-xl-3 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="dropdown float-end">
+                            <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="#">Edit</a><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Remove</a></div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div><img src="{%if user.image%}{{user.image.url}}{%else%}{% static 'assets/images/футбол.png' %}{%endif%}" alt="" class="avatar-md rounded-circle img-thumbnail" /></div>
+                            <div class="flex-1 ms-3">
+                                <h5 class="font-size-16 mb-1"><a href="#" class="text-dark">{{user.username}}</a></h5>
+                                <span class="badge badge-soft-success mb-0">
+                                    {%if user.is_staff%}
+                                    Администратор
+                                    {%else%}
+                                    Клиент
+                                    {%endif%}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mt-3 pt-1">
+                            <p class="text-muted mb-0"><i class="mdi mdi-phone font-size-15 align-middle pe-2 text-primary"></i>{{user.phone}}</p>
+                            <p class="text-muted mb-0 mt-2"><i class="mdi mdi-email font-size-15 align-middle pe-2 text-primary"></i>{{user.email}}</p>
+                            <p class="text-muted mb-0 mt-2"><i class="mdi mdi-google-maps font-size-15 align-middle pe-2 text-primary"></i>{{user.address}}</p>
+                        </div>
+                        <div class="d-flex gap-2 pt-4">
+                            <a class="btn btn-soft-primary btn-sm w-50" href="{% url 'detail_user' user.id %}" role="button" ><i class="bx bx-user me-1"></i>  Профиль</a>
+                            <a class="btn btn-primary btn-sm w-50r" href="" role="button" style="padding-left: 15px; padding-right: 15px;"><i class="bx bx-message-square-dots me-1"></i>  Написать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+            {%include 'pagin/pagination.html'%}
+        </div>
+    {%endif%}
 </div>
 
 {%endif%}

@@ -49,162 +49,169 @@
     <div class="blocktitle blocktitle__center">
         <div class="blocktitle__title">Заказы</div>
     </div>
-    <div class="section-indent">
-        <div class="container">
+    {%if not orders and not services and not constructions %}
+        <center>
+            <h1>Пока не заказов(</h1>
+        </center>
+    {%else%}
+        <div class="section-indent">
+            <div class="container">
 
-            <div class="row">
+                <div class="row">
 
-                {%for order in orders%}
-                <div class="col-md-4">
-                    <div class="box-info04">
-                        <div class="box-info04__img">
-                            <picture>
-                                <source srcset="{{s.image.url}}" data-srcset="{{s.image.url}}" type="image/webp">
-                                <source srcset="{{s.image.url}}" data-srcset="{{s.image.url}}" type="image/jpg">
-                                <img src="{{s.image.url}}" data-src="{{s.image.url}}" class=" lazyloaded" alt="">
-                            </picture>
-                        </div>
-                        <div class="box-info04__content" data-value="1">
-                            <h10 class="box-info04__title">
-                                Заказчик: <a href="">{{order.user}}</a> <br>
-                                Номер: <a href="tel:{{order.user.phone}}">{{order.user.phone}}</a> <br>
-                                Почта: <a target="_ blank"
-                                    href="mailto:{{order.user.email}}?subject=Потверждение заказа">{{order.user.email}}</a>
+                    
+                    {%for order in orders%}
+                    <div class="col-md-4">
+                        <div class="box-info04">
+                            <div class="box-info04__img">
+                                <picture>
+                                    <source srcset="{{s.image.url}}" data-srcset="{{s.image.url}}" type="image/webp">
+                                    <source srcset="{{s.image.url}}" data-srcset="{{s.image.url}}" type="image/jpg">
+                                    <img src="{{s.image.url}}" data-src="{{s.image.url}}" class=" lazyloaded" alt="">
+                                </picture>
+                            </div>
+                            <div class="box-info04__content" data-value="1">
+                                <h10 class="box-info04__title">
+                                    Заказчик: <a href="">{{order.user}}</a> <br>
+                                    Номер: <a href="tel:{{order.user.phone}}">{{order.user.phone}}</a> <br>
+                                    Почта: <a target="_ blank"
+                                        href="mailto:{{order.user.email}}?subject=Потверждение заказа">{{order.user.email}}</a>
+                                    <br>
+                                    Время заказа: {{order.time_create}} <br>
+                                </h10>
                                 <br>
-                                Время заказа: {{order.time_create}} <br>
-                            </h10>
-                            <br>
-                            <p>
-                                {%for o in order.basket.all%}
-                                {{o}}: <b>{{o.quantity}}-штук</b>;
-                                <hr>
-                                {%endfor%}
-                            </p>
-                            <form action="" method="post">
-                                <a class="btn btn-danger" href="{%url  'delete_order' order.id%}"
-                                    role="button">Удалить</a>
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                {%csrf_token%}
-                                <input type="hidden" name="order_id" value="{{order.id}}">
-                                <button type="submit" name="active_buy" class="btn btn-success">Потвердить</button>
-                            </form>
+                                <p>
+                                    {%for o in order.basket.all%}
+                                    {{o}}: <b>{{o.quantity}}-штук</b>;
+                                    <hr>
+                                    {%endfor%}
+                                </p>
+                                <form action="" method="post">
+                                    <a class="btn btn-danger" href="{%url  'delete_order' order.id%}"
+                                        role="button">Удалить</a>
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    {%csrf_token%}
+                                    <input type="hidden" name="order_id" value="{{order.id}}">
+                                    <button type="submit" name="active_buy" class="btn btn-success">Потвердить</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {%endfor%}
+                    {%endfor%}
 
-                {%for order in services%}
-                <div class="col-md-4">
-                    <div class="box-info04">
-                        <div class="box-info04__content" data-value="1">
-                            <h10 class="box-info04__title">
-                                Заказчик: <a href="">{{order.user}}</a> <br>
-                                Номер: <a href="tel:{{order.user.phone}}">{{order.user.phone}}</a> <br>
-                                Почта: <a target="_ blank"
-                                    href="mailto:{{order.user.email}}?subject=Потверждение заказа">{{order.user.email}}</a>
+                    {%for order in services%}
+                    <div class="col-md-4">
+                        <div class="box-info04">
+                            <div class="box-info04__content" data-value="1">
+                                <h10 class="box-info04__title">
+                                    Заказчик: <a href="">{{order.user}}</a> <br>
+                                    Номер: <a href="tel:{{order.user.phone}}">{{order.user.phone}}</a> <br>
+                                    Почта: <a target="_ blank"
+                                        href="mailto:{{order.user.email}}?subject=Потверждение заказа">{{order.user.email}}</a>
+                                    <br>
+                                    Время заказа: {{order.time_create}} <br>
+                                </h10>
                                 <br>
-                                Время заказа: {{order.time_create}} <br>
-                            </h10>
-                            <br>
-                            <p>
+                                <p>
 
-                                Kатигория: <b>{{order.category}}</b>;
-                                <hr>
-                                Собшение: <b>{{order.message}}</b>;
-                            </p>
-                            <form action="" method="post">
-                                <a class="btn btn-danger" href="{%url  'delete_service' order.id%}"
-                                    role="button">Удалить</a>
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                {%csrf_token%}
-                                <input type="hidden" name="service_id" value="{{order.id}}">
-                                <button type="submit" name="active_ser" class="btn btn-success">Потвердить</button>
-                            </form>
+                                    Kатигория: <b>{{order.category}}</b>;
+                                    <hr>
+                                    Собшение: <b>{{order.message}}</b>;
+                                </p>
+                                <form action="" method="post">
+                                    <a class="btn btn-danger" href="{%url  'delete_service' order.id%}"
+                                        role="button">Удалить</a>
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    {%csrf_token%}
+                                    <input type="hidden" name="service_id" value="{{order.id}}">
+                                    <button type="submit" name="active_ser" class="btn btn-success">Потвердить</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {%endfor%}
+                    {%endfor%}
 
-                {%for order in constructions%}
-                <div class="col-md-4">
-                    <div class="box-info04">
-                        <div class="box-info04__content" data-value="1">
-                            <h10 class="box-info04__title">
-                                Заказчик: <a href="">{{order.user}}</a> <br>
-                                Номер: <a href="tel:{{order.user.phone}}">{{order.user.phone}}</a> <br>
-                                Почта: <a target="_ blank"
-                                    href="mailto:{{order.user.email}}?subject=Потверждение заказа">{{order.user.email}}</a>
+                    {%for order in constructions%}
+                    <div class="col-md-4">
+                        <div class="box-info04">
+                            <div class="box-info04__content" data-value="1">
+                                <h10 class="box-info04__title">
+                                    Заказчик: <a href="">{{order.user}}</a> <br>
+                                    Номер: <a href="tel:{{order.user.phone}}">{{order.user.phone}}</a> <br>
+                                    Почта: <a target="_ blank"
+                                        href="mailto:{{order.user.email}}?subject=Потверждение заказа">{{order.user.email}}</a>
+                                    <br>
+                                    Время заказа: {{order.time_create}} <br>
+                                </h10>
                                 <br>
-                                Время заказа: {{order.time_create}} <br>
-                            </h10>
-                            <br>
-                            <p>
-                                <b>Kатигория</b>: {{order.category}};
-                                <hr>
-                                <b>Ширина</b>: {{order.width}};
-                                <hr>
-                                <b>Длина</b>: {{order.length}};
-                                <hr>
-                                <b>Глубина</b>: {{order.depth}};
-                                <hr>
-                                <b>Отделка</b>: {{order.decoration}};
-                                <hr>
-                                <b>Дополнительно</b>: {%for i in order.additionally.all%}{{i}}; {%endfor%}
-                                <hr>
-                                <b>Собшение</b>: {{order.desctiption}};
-                                <hr>
-                            </p>
-                            <form action="" method="post">
-                                <a class="btn btn-danger" href="{%url  'delete_pool' order.id%}"
-                                    role="button">Удалить</a>
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                {%csrf_token%}
-                                <input type="hidden" name="pool_id" value="{{order.id}}">
-                                <button type="submit" name="active_pool" class="btn btn-success">Потвердить</button>
-                            </form>
+                                <p>
+                                    <b>Kатигория</b>: {{order.category}};
+                                    <hr>
+                                    <b>Ширина</b>: {{order.width}};
+                                    <hr>
+                                    <b>Длина</b>: {{order.length}};
+                                    <hr>
+                                    <b>Глубина</b>: {{order.depth}};
+                                    <hr>
+                                    <b>Отделка</b>: {{order.decoration}};
+                                    <hr>
+                                    <b>Дополнительно</b>: {%for i in order.additionally.all%}{{i}}; {%endfor%}
+                                    <hr>
+                                    <b>Собшение</b>: {{order.desctiption}};
+                                    <hr>
+                                </p>
+                                <form action="" method="post">
+                                    <a class="btn btn-danger" href="{%url  'delete_pool' order.id%}"
+                                        role="button">Удалить</a>
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    {%csrf_token%}
+                                    <input type="hidden" name="pool_id" value="{{order.id}}">
+                                    <button type="submit" name="active_pool" class="btn btn-success">Потвердить</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
+                    {%endfor%}
                 </div>
-                {%endfor%}
             </div>
         </div>
-    </div>
+    {%endif%}
 </div>
 
 {%endif%}
