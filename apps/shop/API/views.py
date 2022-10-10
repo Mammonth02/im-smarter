@@ -6,9 +6,9 @@ from rest_framework.pagination import PageNumberPagination
 
 
 from apps.shop.API.permissions import IsAdminOrReadOnly
-from apps.shop.API.serializers import ListImagesProductSerializer, ProductSerializer
+from apps.shop.API.serializers import CatProductSerializer, ListImagesProductSerializer, ProductSerializer
 from apps.shop.API.service import ProductFilter
-from apps.shop.models import ImagesForProducts, Product
+from apps.shop.models import Category, ImagesForProducts, Product
 
 
 class Pagination(PageNumberPagination):
@@ -47,4 +47,14 @@ class ListImagesProductAPI(generics.ListCreateAPIView):
 class DeleteImagesProductAPI(generics.RetrieveDestroyAPIView):
     queryset = ImagesForProducts.objects.all()
     serializer_class = ListImagesProductSerializer
+    permission_classes = (IsAdminUser,)
+
+class ListCreateCatProductAPI(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CatProductSerializer
+    permission_classes = (IsAdminUser,)
+
+class UpdateDeleteCategory(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CatProductSerializer
     permission_classes = (IsAdminUser,)
