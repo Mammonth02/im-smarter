@@ -1,9 +1,10 @@
 from django import forms
-from apps.home_site.models import SiteInfo
-from apps.shop.models import *
-from apps.construction.models import *
-from apps.services.models import *
 from ckeditor.widgets import CKEditorWidget
+
+from apps.home_site.models import SiteInfo
+from apps.shop.models import Category, Product
+from apps.construction.models import Additionally, Decoration, PoolCat
+from apps.services.models import ServiceType
 
 class CreateProductForm(forms.ModelForm):
     class Meta:

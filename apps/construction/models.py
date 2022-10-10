@@ -1,5 +1,3 @@
-from types import ModuleType
-from unicodedata import category
 from django.db import models
 
 from apps.users.models import User

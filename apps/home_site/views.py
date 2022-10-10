@@ -1,15 +1,13 @@
 from django.views import generic
 from django.shortcuts import redirect
-
-from apps.home_site.tasks import send_message
-
-from apps.users.models import Basket, Order
-from .forms import *
 from django.urls import reverse_lazy
 
-
-
+from .forms import *
+from apps.services.models import Service
+from apps.shop.models import ImagesForProducts
+from apps.users.models import Basket, Order
 from apps.home_site.models import ConstructionImages, SiteInfo
+from apps.construction.models import Pool
 
 
 class Home(generic.ListView):
@@ -24,7 +22,7 @@ class UpdateInfo(generic.UpdateView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        instance = form.save(commit=False)
+        form.save(commit=False)
         self.object = form.save()
         images = self.request.FILES.getlist('filefield')
         for img in images:
@@ -58,6 +56,7 @@ class Admin(generic.ListView):
         elif request.method=='POST' and 'active_pool' in request.POST:
             Pool.objects.filter(id = request.POST.get('pool_id')).update(active = True)
             return redirect('admin')
+
 class CreateProduct(generic.CreateView):
     form_class = CreateProductForm
     template_name = 'home/site/create_product.html'

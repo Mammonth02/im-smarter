@@ -1,15 +1,16 @@
 from django.views import generic
 from django.shortcuts import redirect
-from apps.services.forms import UpdateServiceTypeForm
-from apps.services.models import *
-from apps.users.models import User
-from apps.home_site.tasks import send_message
 from django.urls import reverse_lazy
+
+from apps.home_site.tasks import send_message
+from apps.services.forms import UpdateServiceTypeForm
+from apps.services.models import Service, ServiceType
+from apps.users.models import User
 
 
 # Create your views here.
 class ServicesListView(generic.ListView):
-    model = ServiceType 
+    model = ServiceType
     template_name = 'services/services.html'
     context_object_name = 'services'
 

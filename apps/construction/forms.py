@@ -1,5 +1,6 @@
-from .models import Pool
 from django import forms
+
+from .models import Pool
 
 class CreatePoolForm(forms.ModelForm):
     class Meta:

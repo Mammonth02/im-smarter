@@ -1,12 +1,12 @@
-from multiprocessing import context
-from apps.construction.forms import CreatePoolForm
 from django.urls import reverse_lazy
-
-from apps.home_site.models import ConstructionImages
-from .models import *
-from django.views import generic
 from django.shortcuts import redirect
+from django.views import generic
+
 from apps.home_site.tasks import send_message
+from .models import Pool
+from apps.users.models import User
+from apps.home_site.models import ConstructionImages
+from apps.construction.forms import CreatePoolForm
 
 
 class cListView(generic.CreateView):

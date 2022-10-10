@@ -1,10 +1,11 @@
 from django.views import generic
-from apps.reviews.models import Reviews
-from apps.users.models import Basket
-from .forms import CreateReviewsForm
+from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.db.models import F
-from django.urls import reverse_lazy
+
+from .forms import CreateReviewsForm
+from apps.reviews.models import Reviews
+from apps.users.models import Basket
 
 # Create your views here.
 

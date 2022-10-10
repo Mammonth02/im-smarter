@@ -1,14 +1,14 @@
+from django.shortcuts import redirect
+from django.views import generic
+from django.urls import reverse_lazy
+from django.core.paginator import Paginator
+
+from apps.users.forms import CreateBasketForm
 from apps.home_site.forms import CreateProductForm
 from apps.reviews.models import Reviews
-from apps.reviews.views import *
-from apps.shop.models import *
-from django.views import generic
-from django.core.paginator import Paginator
-from apps.users.forms import CreateBasketForm
-from django.urls import reverse_lazy
+from apps.reviews.views import CreateReviewsView 
+from apps.shop.models import Category, ImagesForProducts, Product
 
-
-# Create your views here.
 
 def cat_sort(id):
     list = [id]
@@ -109,7 +109,6 @@ class ShopCat(generic.ListView):
         return a
 
 class FilterPrice(ShopCat, generic.ListView):
-    
     template_name = "shop/shop_list.html"
     context_object_name = 'products'
     paginate_by = 1000

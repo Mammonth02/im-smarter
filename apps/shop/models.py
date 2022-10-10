@@ -1,7 +1,6 @@
-from audioop import reverse
+from django.utils.safestring import mark_safe
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
-from django.utils.safestring import mark_safe
 
 
 # Create your models here.

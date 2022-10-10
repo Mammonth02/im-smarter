@@ -17,11 +17,6 @@ class ServiceType(models.Model):
         verbose_name= 'Тип услуги'
 
 class Service(models.Model):
-    CHOOS = (
-        (True, 'По расписанию'),
-        (False, "Один раз"),
-    )
-
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Заказчик')
     category = models.ForeignKey(ServiceType, on_delete=models.SET_NULL, null=True, verbose_name='Катигория')
     message = models.TextField(verbose_name='Коментарий')

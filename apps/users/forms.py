@@ -1,7 +1,8 @@
-from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from apps.users.models import Basket, User
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
+
+from apps.users.models import Basket, User
 
 class RegisterUserForm(UserCreationForm):
     class Meta:

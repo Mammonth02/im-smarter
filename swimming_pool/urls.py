@@ -1,7 +1,7 @@
 from django.conf.urls.static import static
+from django.urls import path, include
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -9,14 +9,22 @@ urlpatterns = [
 ]
 
 local_urls = [
-    path('site/', include('apps.home_site.urls')),
     path('shop/', include('apps.shop.urls')),
     path('profile/', include('apps.users.urls')),
-    path('construction/', include('apps.construction.urls')),
+    path('site/', include('apps.home_site.urls')),
     path('services/', include('apps.services.urls')),
+    path('construction/', include('apps.construction.urls')),
 ]
 
-urlpatterns += local_urls
+api_urls = [
+    path('api/site/', include('apps.home_site.API.urls')),
+    path('api/shop/', include('apps.shop.API.urls')),
+    path('api/users/', include('apps.users.API.urls')),
+    path('api/reviews/', include('apps.reviews.API.urls')),
+    path('api/services/', include('apps.services.API.urls')),
+    path('api/construction/', include('apps.construction.API.urls')),
+]
 
+urlpatterns += local_urls + api_urls
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
