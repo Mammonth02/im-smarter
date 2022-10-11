@@ -2,7 +2,7 @@
 {% block main %}
 {%load static%}
 
-{%if user.is_staff%}
+{%if request.user == self_user%}
 <style>
     body {
         margin-top: 20px;
@@ -149,6 +149,7 @@
                                 {{self_user.address}}
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -158,21 +159,9 @@
                     <div class="card mb-3">
                         <div class="card h-100">
                             <div class="card-body">
-
-                                {% if order.cancel_order %}
-                                    <h6 class="d-flex align-items-center mb-3">
-                                        <i class="material-icons text-info mr-2">
-                                            <h4><b>Заказ отменён</b></h4>
-                                        </i>
-                                    </h6> 
-                                {%else%}
-                                <h6 class="d-flex align-items-center mb-3">
-                                    <i class="material-icons text-info mr-2">
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">
                                         <h4><b>Заказ</b></h4>
-                                    </i>
-                                </h6>
-                                {%endif%}
-
+                                    </i></h6>
                                 <b>Дата</b> : {{order.time_create}};
                                 <br>
                                 <br>
@@ -180,14 +169,34 @@
                                     <b>Дата отмены</b> : {{order.time_update}};
                                 {%endif%}
                                 <hr>
+
                                 {%for o in order.basket.all%}
                                 <small>{{o}}: <b>{{o.quantity}}-штук</b></small>
                                 <hr>
                                 {%endfor%}
+                                <form action="" method="post">
+                                    {%csrf_token%}
+                                    <input type="hidden" name="order_id" value="{{order.id}}">
 
-                                    <a class="btn btn-danger" href="{%url  'delete_order_user' order.id order.user.id%}"
-                                        role="button">Удалить</a>
+                                    {% if order.cancel_order %}
+                                        <a type="submit" name="cancel_order" class="btn btn-warning">Вы отменили заказ!</a>
+                                    {%else%}
+                                        <button type="submit" name="cancel_order" class="btn btn-danger">Отменить заказ</button>
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        <button type="submit" name="received" class="btn btn-success">Потвердить получение</button>
+                                    {%endif%}
 
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -197,19 +206,9 @@
                     <div class="card mb-3">
                         <div class="card h-100">
                             <div class="card-body">
-                                {% if order.cancel_service %}
-                                    <h6 class="d-flex align-items-center mb-3">
-                                        <i class="material-icons text-info mr-2">
-                                            <h4><b>Услуга отменена</b></h4>
-                                        </i>
-                                    </h6> 
-                                {%else%}
-                                    <h6 class="d-flex align-items-center mb-3">
-                                        <i class="material-icons text-info mr-2">
-                                            <h4><b>Услуга</b></h4>
-                                        </i>
-                                    </h6>
-                                {%endif%}
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">
+                                        <h4><b>Услуга</b></h4>
+                                    </i></h6>
                                 <p>
                                     <b>Дата</b> : {{order.time_create}};
                                     <hr>
@@ -218,9 +217,17 @@
                                     <b>Собшение</b>: {{order.message}};
                                 </p>
 
-
-                                <a class="btn btn-danger" href="{%url  'delete_service_user' order.id self_user.id%}"
-                                    role="button">Удалить</a>
+                                    <form action="" method="post">
+                                        {%csrf_token%}
+                                        <input type="hidden" name="order_id" value="{{order.id}}">
+    
+                                        {% if order.cancel_service %}
+                                            <a type="submit" class="btn btn-warning">Вы отменили услугу!</a>
+                                        {%else%}
+                                            <button type="submit" name="cancel_service" class="btn btn-danger">Отменить услугу</button>
+                                        {%endif%}
+    
+                                    </form>
 
                             </div>
                         </div>
@@ -231,19 +238,9 @@
                     <div class="card mb-3">
                         <div class="card h-100">
                             <div class="card-body">
-                                {% if order.cancel_construction %}
-                                    <h6 class="d-flex align-items-center mb-3">
-                                        <i class="material-icons text-info mr-2">
-                                            <h4><b>Строительство отменено</b></h4>
-                                        </i>
-                                    </h6> 
-                                {%else%}
-                                    <h6 class="d-flex align-items-center mb-3">
-                                        <i class="material-icons text-info mr-2">
-                                            <h4><b>Строительство</b></h4>
-                                        </i>
-                                    </h6>
-                                {%endif%}
+                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">
+                                        <h4><b>Стройка</b></h4>
+                                    </i></h6>
                                 <p>
                                     <b>Дата</b> : {{order.time_create}};
                                     <hr>
@@ -264,8 +261,17 @@
                                 </p>
 
 
-                                <a class="btn btn-danger" href="{%url  'delete_pool_user' order.id self_user.id%}"
-                                    role="button">Удалить</a>
+                                <form action="" method="post">
+                                    {%csrf_token%}
+                                    <input type="hidden" name="order_id" value="{{order.id}}">
+
+                                    {% if order.cancel_construction %}
+                                        <a type="submit" class="btn btn-warning">Вы отменили строительство!</a>
+                                    {%else%}
+                                        <button type="submit" name="cancel_construction" class="btn btn-danger">Отменить строительство</button>
+                                    {%endif%}
+
+                                </form>
 
                             </div>
                         </div>

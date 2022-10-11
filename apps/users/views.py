@@ -13,7 +13,7 @@ from .forms import CreateBasketForm, LoginUserForm, RegisterUserForm, UpdateUser
 
 def logout_user(request):
     logout(request)
-    return redirect('login')
+    return redirect('login_user')
 
 class RegistrationView(generic.CreateView):
     form_class = RegisterUserForm
@@ -126,16 +126,10 @@ class DetailUser(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['orders'] = Order.objects.filter(user_id = self.kwargs['id'], active = True, received = False)
-        context['services'] = Service.objects.filter(active = True)
-        context['constructions'] = Pool.objects.filter(active = True)
-
+        context['services'] = Service.objects.filter(user_id = self.kwargs['id'], active = True)
+        context['constructions'] = Pool.objects.filter(user_id = self.kwargs['id'], active = True)
         return context
-
-    def post(self, request, *args, **kwargs):
-        if request.method=='POST' and 'received' in request.POST:
-            Order.objects.filter(id = request.POST.get('order_id')).update(received = True)
-            return redirect('detail_user', self.kwargs['id'])
-
+        
 class SearchUser(generic.ListView):
     paginate_by = 12
     template_name = 'user/cart_page_users.html'
@@ -150,3 +144,34 @@ class SearchUser(generic.ListView):
         context['q'] = self.request.GET.get('q')
         context['len_users'] = len(context['users'])
         return context
+
+class DetailUserForUser(generic.DeleteView):
+    model = User
+    template_name = 'user/profile_for_user.html'
+    pk_url_kwarg = 'id'
+    context_object_name = 'self_user'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['orders'] = Order.objects.filter(user_id = self.kwargs['id'], active = True, received = False)
+        context['services'] = Service.objects.filter(user_id = self.kwargs['id'], active = True)
+        context['constructions'] = Pool.objects.filter(user_id = self.kwargs['id'], active = True)
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method=='POST' and 'received' in request.POST:
+            Order.objects.filter(id = request.POST.get('order_id')).update(received = True)
+            return redirect('detail_user_for_user', self.kwargs['id'])
+            
+        elif request.method=='POST' and 'cancel_order' in request.POST:
+            Order.objects.filter(id = request.POST.get('order_id')).update(cancel_order = True)
+            return redirect('detail_user_for_user', self.kwargs['id'])
+
+        elif request.method=='POST' and 'cancel_service' in request.POST:
+            Service.objects.filter(id = request.POST.get('order_id')).update(cancel_service = True)
+            return redirect('detail_user_for_user', self.kwargs['id'])
+
+        elif request.method=='POST' and 'cancel_construction' in request.POST:
+            Pool.objects.filter(id = request.POST.get('order_id')).update(cancel_construction = True)
+            return redirect('detail_user_for_user', self.kwargs['id'])

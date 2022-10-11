@@ -47,6 +47,7 @@ class Pool(models.Model):
     desctiption = models.TextField(verbose_name='Коментарий')
     active = models.BooleanField(default=False, verbose_name='Активность')
     time_create = models.DateTimeField(auto_now_add=True, null=True)
+    cancel_construction = models.BooleanField(default=False, verbose_name='Отменить строительство')
 
     def __str__(self):
         return f'{self.user}'

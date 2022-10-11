@@ -42,8 +42,14 @@ class Admin(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['orders'] = Order.objects.filter(active = False)
+        context['cancel_orders'] = Order.objects.filter(cancel_order = True)
+
         context['services'] = Service.objects.filter(active = False)
+        context['cancel_services'] = Service.objects.filter(cancel_service = True)
+
         context['constructions'] = Pool.objects.filter(active = False)
+        context['cancel_constructions'] = Pool.objects.filter(cancel_construction = True)
+
         return context
     
     def post(self, request, *args, **kwargs):
@@ -56,6 +62,28 @@ class Admin(generic.ListView):
         elif request.method=='POST' and 'active_pool' in request.POST:
             Pool.objects.filter(id = request.POST.get('pool_id')).update(active = True)
             return redirect('admin')
+
+        elif request.method=='POST' and 'no_cancel_order' in request.POST:
+            Order.objects.filter(id = request.POST.get('order_id')).update(cancel_order = False)
+            return redirect('admin')
+        elif request.method=='POST' and 'no_cancel_service' in request.POST:
+            Service.objects.filter(id = request.POST.get('service_id')).update(cancel_service = False)
+            return redirect('admin')
+        elif request.method=='POST' and 'no_cancel_construction' in request.POST:
+            Pool.objects.filter(id = request.POST.get('pool_id')).update(cancel_construction = False)
+            return redirect('admin')
+
+class FilterOrders(Admin, generic.ListView):
+    template_name = "shop/shop_list.html"
+    context_object_name = 'products'
+    paginate_by = 1000
+
+    def get_context_data(self, *, odject_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+
+
+        return context 
 
 class CreateProduct(generic.CreateView):
     form_class = CreateProductForm

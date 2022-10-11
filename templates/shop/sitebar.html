@@ -31,7 +31,6 @@
                 <form action="{%url 'filter' cat_id%}" method="get">
 
                     {%for i, v in view.get_sorted.items%}
-
                     <div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="sorted" id="exampleRadios2" value="{{v}}"
@@ -42,10 +41,7 @@
                         </div>
 
                     </div>
-
-
                     {%endfor%}
-
 
             </div>
         </div>

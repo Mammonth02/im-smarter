@@ -36,3 +36,6 @@ class Order(models.Model):
     time_create = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=False, verbose_name='Активность')
     received = models.BooleanField(default=False, verbose_name='Получение')
+    cancel_order = models.BooleanField(default=False, verbose_name='Отмена заказа')
+    time_update = models.DateTimeField(auto_now=True)
+
