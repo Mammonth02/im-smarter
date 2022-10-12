@@ -21,6 +21,7 @@ urlpatterns = [
     path('delete_service_user/<int:pk>/<int:id>/', DeleteServiceUser.as_view(), name='delete_service_user'),
     path('delete_pool/<int:pk>/', DeletePool.as_view(), name='delete_pool'),
     path('delete_pool_user/<int:pk>/<int:id>/', DeletePoolUser.as_view(), name='delete_pool_user'),
+    path('filter_admin/<slug:s>/', FilterOrders.as_view(), name='filter_admin'),
 
 
 ]

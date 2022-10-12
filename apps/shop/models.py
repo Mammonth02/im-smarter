@@ -22,7 +22,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/', verbose_name='Фото')
     price = models.FloatField(verbose_name='Цена')
     status = models.BooleanField(default=True, verbose_name='наличие')
-    description = models.TextField(verbose_name='краткое описание', null=True)
+    description = models.TextField(verbose_name='Kраткое описание', null=True)
     
 
     def image_tag(self):

@@ -38,19 +38,6 @@ class UpdateInfo(generic.UpdateView):
 class Admin(generic.ListView):
     model = SiteInfo 
     template_name = 'home/site/admin.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['orders'] = Order.objects.filter(active = False)
-        context['cancel_orders'] = Order.objects.filter(cancel_order = True)
-
-        context['services'] = Service.objects.filter(active = False)
-        context['cancel_services'] = Service.objects.filter(cancel_service = True)
-
-        context['constructions'] = Pool.objects.filter(active = False)
-        context['cancel_constructions'] = Pool.objects.filter(cancel_construction = True)
-
-        return context
     
     def post(self, request, *args, **kwargs):
         if request.method=='POST' and 'active_buy' in request.POST:
@@ -74,12 +61,30 @@ class Admin(generic.ListView):
             return redirect('admin')
 
 class FilterOrders(Admin, generic.ListView):
-    template_name = "shop/shop_list.html"
+    template_name = 'home/site/admin.html'
     context_object_name = 'products'
     paginate_by = 1000
 
     def get_context_data(self, *, odject_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        s = self.kwargs['s']
+
+        if s == 'orders':
+            context['orders'] = Order.objects.filter(active = False)
+        elif s == 'cancel_orders':
+            context['cancel_orders'] = Order.objects.filter(cancel_order = True)
+
+        elif s == 'services':
+            context['services'] = Service.objects.filter(active = False)
+        elif s == 'cancel_services':
+            context['cancel_services'] = Service.objects.filter(cancel_service = True)
+
+        elif s == 'constructions':
+            context['constructions'] = Pool.objects.filter(active = False)
+        elif s == 'cancel_constructions':
+            context['cancel_constructions'] = Pool.objects.filter(cancel_construction = True)
+
+
 
 
 
