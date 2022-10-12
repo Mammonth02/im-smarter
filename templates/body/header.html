@@ -64,7 +64,7 @@
                         <g>
                             <g>
                                 <path d="M428.544,52.736H45.568c-7.168,0-13.824,1.536-19.968,4.608l211.456,171.52l211.456-171.52
-                         C442.368,54.272,436.224,52.736,428.544,52.736z" />
+                            C442.368,54.272,436.224,52.736,428.544,52.736z" />
                             </g>
                         </g>
                         <g>
@@ -322,10 +322,12 @@
                                         </a>
                                         {%endif%}
                                     </li>
+                                    {%if request.user.is_authenticated%}
                                     <li>
-                                        <a href="{%if request.user.is_authenticated%}{% url 'detail_user_for_user' user.id %}{%endif%}">Заказы
+                                        <a href="{% url 'detail_user_for_user' user.id %}">Заказы
                                         </a>
                                     </li>
+                                    {%endif%}
                                     <li>
                                         {%if request.user.is_authenticated%}
                                         <a href="{%url 'logout_user'%}">Выход</a>

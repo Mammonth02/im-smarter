@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Pool
+from .models import Additionally, Decoration, Pool, PoolCat
 
 class CreatePoolForm(forms.ModelForm):
     class Meta:
@@ -14,4 +14,30 @@ class CreatePoolForm(forms.ModelForm):
             'decoration': forms.RadioSelect(),
             'additionally': forms.CheckboxSelectMultiple(),
             'desctiption': forms.Textarea(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Дополнительная информация'}),
+        }
+
+class CreateTypePoolForm(forms.ModelForm):
+    class Meta:
+        model = PoolCat
+        fields = '__all__'
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Название'}),
+            'desctiption': forms.Textarea(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Описание'}),
+        }
+
+class CreatePoolAdditionallyForm(forms.ModelForm):
+    class Meta:
+        model = Additionally
+        fields = '__all__'
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Название'}),
+            'content': forms.Textarea(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Описание'}),
+        }
+
+class CreatePoolDecorationForm(forms.ModelForm):
+    class Meta:
+        model = Decoration
+        fields = '__all__'
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Название'}),
         }

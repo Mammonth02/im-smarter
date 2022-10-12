@@ -62,9 +62,8 @@
                             Form sent successfully
                         </div>
                     </form>
-                    <br>
-                    <br>
                     <div class="tt-listing row">
+                        
                         {%if not products and not q %}
                             <center><p>Нечего не найдено!</p></center>
                         {%elif not products and cat_id == 0%}
@@ -73,7 +72,7 @@
                             <center><p>По запросу "{{q}}" в катигории "{{categ.title}}" нечего не найдено!</p></center>
                         {%else%}
                             {%for p in products%}
-                            <div class="col-6 col-md-4 tt-listing__col-item">
+                            <div class="col-6 col-md-4 tt-listing__col-item" style="margin-top: 50px;">
                                 <div class="tt-product">
                                     <div class="tt-product__img">
                                         <a href="{%url 'single_page' p.id%}" class="tt-img">

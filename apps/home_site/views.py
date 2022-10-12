@@ -84,48 +84,7 @@ class FilterOrders(Admin, generic.ListView):
         elif s == 'cancel_constructions':
             context['cancel_constructions'] = Pool.objects.filter(cancel_construction = True)
 
-
-
-
-
         return context 
-
-class CreateProduct(generic.CreateView):
-    form_class = CreateProductForm
-    template_name = 'home/site/create_product.html'
-
-    def form_valid(self, form):
-        instance = form.save(commit=False)
-        self.object = form.save()
-        images = self.request.FILES.getlist('filefield')
-        for img in images:
-            ImagesForProducts.objects.create(product = instance, image = img)
-        return redirect('single_page', instance.id)
-
-class CreateCatProduct(generic.CreateView):
-    form_class = CreateCatProductForm
-    template_name = 'home/site/yes.html'
-    success_url = reverse_lazy('home')
-
-class CreateTypePool(generic.CreateView):
-    form_class = CreateTypePoolForm
-    template_name = 'home/site/yes.html'
-    success_url = reverse_lazy('home')
-
-class CreatePoolAdditionally(generic.CreateView):
-    form_class = CreatePoolAdditionallyForm
-    template_name = 'home/site/yes.html'
-    success_url = reverse_lazy('home')
-
-class CreatePoolDecoration(generic.CreateView):
-    form_class = CreatePoolDecorationForm
-    template_name = 'home/site/yes.html'
-    success_url = reverse_lazy('home')
-
-class CreateServiceType(generic.CreateView):
-    form_class = CreateServiceTypeForm
-    template_name = 'home/site/yes.html'
-    success_url = reverse_lazy('home')
 
 class DeleteImage(generic.DeleteView):
     model = ConstructionImages

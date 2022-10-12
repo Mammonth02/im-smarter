@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.core.paginator import Paginator
 
 from apps.users.forms import CreateBasketForm
-from apps.home_site.forms import CreateProductForm
+from .forms import CreateCatProductForm, CreateProductForm
 from apps.reviews.models import Reviews
 from apps.reviews.views import CreateReviewsView 
 from apps.shop.models import Category, ImagesForProducts, Product
@@ -196,6 +196,18 @@ class UpdateProduct(generic.UpdateView):
         context['id'] = self.kwargs['pk']
         return context
 
+class CreateProduct(generic.CreateView):
+    form_class = CreateProductForm
+    template_name = 'home/site/create_product.html'
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        self.object = form.save()
+        images = self.request.FILES.getlist('filefield')
+        for img in images:
+            ImagesForProducts.objects.create(product = instance, image = img)
+        return redirect('single_page', instance.id)
+
 class DeleteImageProduct(generic.DeleteView):
     model = ImagesForProducts
     template_name = 'home/site/delete.html'
@@ -214,3 +226,24 @@ class DeleteProduct(generic.DeleteView):
         self.object.delete()
         return redirect('shop_cat', '0')
 
+class ListCategorysView(generic.ListView):
+    model = Category 
+    template_name = 'shop/list_cat.html'
+    context_object_name = 'cats'
+
+class UpdateCategory(generic.UpdateView):
+    model = Category
+    form_class = CreateCatProductForm
+    template_name = 'home/site/yes.html'
+    context_object_name = 'form'
+    success_url = reverse_lazy('list_cats')
+
+class DeleteCategory(generic.DeleteView):
+    model = Category
+    template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('list_cats')
+
+class CreateCatProduct(generic.CreateView):
+    form_class = CreateCatProductForm
+    template_name = 'home/site/yes.html'
+    success_url = reverse_lazy('list_cats')

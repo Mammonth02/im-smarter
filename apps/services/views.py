@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
 from apps.home_site.tasks import send_message
-from apps.services.forms import UpdateServiceTypeForm
+from apps.services.forms import CreateServiceTypeForm, UpdateServiceTypeForm
 from apps.services.models import Service, ServiceType
 from apps.users.models import User
 
@@ -49,4 +49,9 @@ class UpdateServiceType(generic.UpdateView):
 class DeleteServiceType(generic.DeleteView):
     model = ServiceType
     template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('services')
+
+class CreateServiceType(generic.CreateView):
+    form_class = CreateServiceTypeForm
+    template_name = 'home/site/yes.html'
     success_url = reverse_lazy('services')

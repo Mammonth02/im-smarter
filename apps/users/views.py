@@ -30,7 +30,7 @@ class LoginView(LoginView):
     template_name = 'user/login.html'
     
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy('login_user')
 
 class BasketViewList(generic.ListView):
     model = Basket 
@@ -129,7 +129,7 @@ class DetailUser(generic.DetailView):
         context['services'] = Service.objects.filter(user_id = self.kwargs['id'], active = True)
         context['constructions'] = Pool.objects.filter(user_id = self.kwargs['id'], active = True)
         return context
-        
+
 class SearchUser(generic.ListView):
     paginate_by = 12
     template_name = 'user/cart_page_users.html'

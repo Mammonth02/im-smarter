@@ -3,10 +3,10 @@ from django.shortcuts import redirect
 from django.views import generic
 
 from apps.home_site.tasks import send_message
-from .models import Pool
 from apps.users.models import User
 from apps.home_site.models import ConstructionImages
-from apps.construction.forms import CreatePoolForm
+from .models import Additionally, Decoration, Pool, PoolCat
+from .forms import CreatePoolAdditionallyForm, CreatePoolDecorationForm, CreatePoolForm, CreateTypePoolForm
 
 
 class cListView(generic.CreateView):
@@ -50,3 +50,75 @@ class cListView(generic.CreateView):
             return redirect('home')
         self.object = None
         return super().post(request, *args, **kwargs)
+
+
+
+class CreatePoolAdditionally(generic.CreateView):
+    form_class = CreatePoolAdditionallyForm
+    template_name = 'home/site/yes.html'
+    success_url = reverse_lazy('list_additionally')
+
+class ListAdditionallyView(generic.ListView):
+    model = Additionally 
+    template_name = 'construction/list_additionally.html'
+    context_object_name = 'cats'
+
+
+class UpdateAdditionally(generic.UpdateView):
+    model = Additionally
+    form_class = CreatePoolAdditionallyForm
+    template_name = 'home/site/yes.html'
+    context_object_name = 'form'
+    success_url = reverse_lazy('list_additionally')
+
+class DeleteAdditionally(generic.DeleteView):
+    model = Additionally
+    template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('list_additionally')
+
+
+class ListTypesPoolView(generic.ListView):
+    model = PoolCat 
+    template_name = 'construction/list_cat_pool.html'
+    context_object_name = 'cats'
+
+class CreateTypePool(generic.CreateView):
+    form_class = CreateTypePoolForm
+    template_name = 'home/site/yes.html'
+    success_url = reverse_lazy('list_pool_cats')
+
+class UpdateCategoryPool(generic.UpdateView):
+    model = PoolCat
+    form_class = CreateTypePoolForm
+    template_name = 'home/site/yes.html'
+    context_object_name = 'form'
+    success_url = reverse_lazy('list_pool_cats')
+
+class DeleteCategoryPool(generic.DeleteView):
+    model = PoolCat
+    template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('list_pool_cats')
+
+
+
+class CreatePoolDecoration(generic.CreateView):
+    form_class = CreatePoolDecorationForm
+    template_name = 'home/site/yes.html'
+    success_url = reverse_lazy('list_decorations')
+
+class ListDecorationView(generic.ListView):
+    model = Decoration 
+    template_name = 'construction/list_decoration.html'
+    context_object_name = 'cats'
+
+class UpdateDecoration(generic.UpdateView):
+    model = Decoration
+    form_class = CreatePoolDecorationForm
+    template_name = 'home/site/yes.html'
+    context_object_name = 'form'
+    success_url = reverse_lazy('list_decorations')
+
+class DeleteDecoration(generic.DeleteView):
+    model = Decoration
+    template_name = 'home/site/delete.html'
+    success_url = reverse_lazy('list_decorations')
