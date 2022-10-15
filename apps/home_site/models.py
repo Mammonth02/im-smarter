@@ -1,9 +1,7 @@
-from turtle import title
 from django.db import models
 from multiselectfield import MultiSelectField
 
 class SiteInfo(models.Model):
-
     WEEK = (
         ('monday', 'Пн'),
         ('tuesday', 'Вт'),
@@ -13,10 +11,9 @@ class SiteInfo(models.Model):
         ('saturday', 'Сб'),
         ('sundayВс', 'Вс')
     )
-
-    title = models.CharField(max_length=100, verbose_name='Название сайта')
-    working_time_start = models.TimeField(verbose_name='Время открытия')
-    working_time_end = models.TimeField(verbose_name='Время закрытия')
+    title = models.CharField(max_length=100, verbose_name='Название сайта', null=True)
+    working_time_start = models.TimeField(verbose_name='Время открытия', null=True)
+    working_time_end = models.TimeField(verbose_name='Время закрытия', null=True)
     working_date = MultiSelectField(choices=WEEK, verbose_name='Рабочии дни', max_length=150,  null=True)
     adress = models.CharField(max_length=250, verbose_name='Адресс', null=True)
     email = models.EmailField(verbose_name='Емайл', null=True)
@@ -38,6 +35,7 @@ class SiteInfo(models.Model):
         if self.__class__.objects.count():
             self.pk = self.__class__.objects.first().pk
         super().save(*args, **kwargs)
+
 
 class ConstructionImages(models.Model):
     image = models.ImageField(upload_to = 'construction_images/')

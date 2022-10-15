@@ -2,7 +2,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
-from apps.services.API.serializers import ServiceSerializer, ServiceTypeSerializer
+from apps.services.API.serializers import CreateServiceSerializer, ServiceTypeSerializer
 from apps.services.models import Service, ServiceType
 from apps.shop.API.permissions import IsAdminOrReadOnly
 
@@ -19,7 +19,7 @@ class UpdateDeleteServiceTypeAPI(generics.RetrieveUpdateDestroyAPIView):
 
 class CreateService(generics.RetrieveAPIView, generics.CreateAPIView):
     queryset = Service.objects.all()
-    serializer_class = ServiceSerializer
+    serializer_class = CreateServiceSerializer
     permission_classes = (IsAdminUser, )
 
     def get(self, request, *args, **kwargs):

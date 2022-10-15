@@ -1,7 +1,10 @@
+from this import d
 from django.conf.urls.static import static
 from django.urls import path, include
 from django.conf import settings
 from django.contrib import admin
+
+from .yasg import urlpatterns as doc_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,6 +19,7 @@ local_urls = [
     path('construction/', include('apps.construction.urls')),
 ]
 
+
 api_urls = [
     path('api/site/', include('apps.home_site.API.urls')),
     path('api/shop/', include('apps.shop.API.urls')),
@@ -25,6 +29,7 @@ api_urls = [
     path('api/construction/', include('apps.construction.API.urls')),
 ]
 
+urlpatterns += doc_url
 urlpatterns += local_urls + api_urls
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

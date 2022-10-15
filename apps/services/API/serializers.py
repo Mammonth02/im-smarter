@@ -8,7 +8,7 @@ class ServiceTypeSerializer(serializers.ModelSerializer):
         model = ServiceType
         fields = '__all__'
 
-class ServiceSerializer(serializers.ModelSerializer):
+class CreateServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
         fields = ['message']

@@ -20,35 +20,6 @@
             <div class="tt-pagetitle__title">
                 Админка
             </div>
-            <ul class="tt-breadcrumbs">
-                <li>
-                    <a href="">Товар</a>
-                    <ul>
-                        <li><a href="{%url 'create_cat_product'%}">Добавить катигорию товара</a></li>
-                        <li><a href="{%url 'list_cats'%}">Список катигорий</a></li>
-                        <li><a href="{%url 'create_product'%}">Добавить товар</a></li>
-                    </ul>
-                </li>
-                <li><a href="">Строительство бассейнов</a>
-                    <ul>
-                        <li><a href="{%url 'create_cat_pool'%}">Добавить тип бассейна</a></li>
-                        <li><a href="{%url 'list_pool_cats'%}">Список типов бассейнов</a></li>
-
-                        <li><a href="{%url 'create_pool_additionally'%}">Добавить дополнительно бассейна</a></li>
-                        <li><a href="{%url 'list_additionally'%}">Список дополнительно бассейнов</a></li>
-
-                        <li><a href="{%url 'create_pool_decoration'%}">Добавить отдеку бассейна</a></li>
-                        <li><a href="{%url 'list_decorations'%}">Список отдеки бассейнов</a></li>
-
-                    </ul>
-                </li>
-
-                <li><a href="{%url 'create_service_type'%}">Сервис</a></li>
-                <li><a href="{%url 'update_info' '1'%}">Инфо сайта</a></li>
-                <li><a href="{%url 'list_users'%}">Список пользователей</a></li>
-
-                </li>
-            </ul>
         </div>
     </div>
 </div>
@@ -97,6 +68,43 @@
                                     <a href="{% url 'filter_admin' 'cancel_constructions'%}">Отмена строительства</a>
                                 </li>
 
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="shop-aside__item">
+                        <div class="shop-aside__title">
+                            Возможности
+                        </div>
+                        <div class="shop-aside__content">
+                            <ul class="tt-list-info">
+                                <li>
+                                    <a href="">Товар</a>
+                                    <ul>
+                                        <li><a href="{%url 'create_cat_product'%}">Добавить катигорию товара</a></li>
+                                        <li><a href="{%url 'list_cats'%}">Список катигорий</a></li>
+                                        <li><a href="{%url 'create_product'%}">Добавить товар</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="">Строительство бассейнов</a>
+                                    <ul>
+                                        <li><a href="{%url 'create_cat_pool'%}">Добавить тип бассейна</a></li>
+                                        <li><a href="{%url 'list_pool_cats'%}">Список типов бассейнов</a></li>
+                
+                                        <li><a href="{%url 'create_pool_additionally'%}">Добавить дополнительно бассейна</a></li>
+                                        <li><a href="{%url 'list_additionally'%}">Список дополнительно бассейнов</a></li>
+                
+                                        <li><a href="{%url 'create_pool_decoration'%}">Добавить отдеку бассейна</a></li>
+                                        <li><a href="{%url 'list_decorations'%}">Список отдеки бассейнов</a></li>
+                
+                                    </ul>
+                                </li>
+                
+                                <li><a href="{%url 'create_service_type'%}">Сервис</a></li>
+                                <li><a href="{%url 'update_info' '1'%}">Инфо сайта</a></li>
+                                <li><a href="{%url 'list_users'%}">Список пользователей</a></li>
+                
+                                </li>
                             </ul>
                         </div>
                     </div>

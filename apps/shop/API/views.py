@@ -52,7 +52,7 @@ class DeleteImagesProductAPI(generics.RetrieveDestroyAPIView):
 class ListCreateCatProductAPI(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CatProductSerializer
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAdminOrReadOnly,)
 
 class UpdateDeleteCategory(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()

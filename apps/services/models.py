@@ -22,7 +22,7 @@ class Service(models.Model):
     message = models.TextField(verbose_name='Коментарий')
     active = models.BooleanField(default=False, verbose_name='Активность')
     time_create = models.DateTimeField(auto_now_add=True, null=True)
-    cancel_service = models.BooleanField(default=False, verbose_name='Атмена услуги')
+    cancel_service = models.BooleanField(default=False, verbose_name='Отмена услуги')
 
 
 

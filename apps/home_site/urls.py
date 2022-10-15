@@ -5,7 +5,6 @@ from apps.home_site.views import *
 
 
 urlpatterns = [
-    path('home', Home.as_view(), name='home'),
     path('update_info/<int:pk>', UpdateInfo.as_view(), name='update_info'),
     path('delete_img/<int:pk>/<int:id>', DeleteImage.as_view(), name='delete_img'),
     path('admin/', Admin.as_view(), name='admin'),

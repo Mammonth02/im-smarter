@@ -21,8 +21,6 @@ class Basket(models.Model):
     quantity = models.PositiveIntegerField(verbose_name='Количество', null=True)
     status = models.BooleanField(default=False, verbose_name='Заказ')
 
-
-
     class Meta:
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзина'

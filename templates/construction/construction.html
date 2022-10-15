@@ -47,49 +47,6 @@
                             акводискатеки
                         </p>
                         <h6 class="tt-subtitle-01 tt-subtitle-01__top02">
-                            Наши клиенты:
-                        </h6>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <ul class="tt-list">
-                                    <li>
-                                        Hotels &amp; Resorts
-                                    </li>
-                                    <li>
-                                        Municipal &amp; Public Pools
-                                    </li>
-                                    <li>
-                                        YMCA / Boys &amp; Girls Clubs
-                                    </li>
-                                    <li>
-                                        Colleges &amp; Universities
-                                    </li>
-                                    <li>
-                                        Private Schools &amp; High Schools
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul class="tt-list">
-                                    <li>
-                                        Spas &amp; Retreats
-                                    </li>
-                                    <li>
-                                        Camp Grounds
-                                    </li>
-                                    <li>
-                                        Country Clubs &amp; Private Clubs
-                                    </li>
-                                    <li>
-                                        Community Centers
-                                    </li>
-                                    <li>
-                                        Apartment Buildings
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h6 class="tt-subtitle-01 tt-subtitle-01__top02">
                             Наши работы:
                         </h6>
                         <div class="row tt-col-img__inner-small tt-gallery__wrapper">
@@ -121,17 +78,10 @@
         </div>
         <div class="container">
             {%if request.user.is_authenticated%}
-            <section class="vh-100 bg-image"
-            style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
-            <div class="mask d-flex align-items-center h-100 gradient-custom-3">
-                <div class="container h-1000">
-                    <div class="row d-flex justify-content-center align-items-center h-100"
-                        style="margin-top: 400px;">
-                        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                            <div class="card" style="border-radius: 15px;">
-                                <div class="card-body p-5">
-                                    <h2 class="text-uppercase text-center mb-5">Заказать
-                                    </h2>
+            <br>
+            <br>
+                                    <h1 class="text-uppercase text-center mb-5">Заказать
+                                    </h1>
     
                                     <form action="" method="post" >
                                         {%csrf_token%}
@@ -147,15 +97,8 @@
                                             </svg>
                                         </button>
                                     </form>
-    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </section>
-            <div style="height: 300px;"></div>
             {%else%}
             <br>
             <br>

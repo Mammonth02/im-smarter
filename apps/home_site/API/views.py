@@ -11,7 +11,6 @@ from apps.users.models import Order
 from apps.construction.models import Pool
 
 
-
 class UpdateSiteInfoAPI(generics.RetrieveUpdateAPIView):
     queryset = SiteInfo.objects.all()
     serializer_class = SiteInfoSerializer
@@ -62,5 +61,3 @@ class UpdateDeleteConstructionImagesAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = ConstructionImages.objects.all()
     serializer_class = ConstructionImagesSerializer
     permission_classes = (IsAdminOrReadOnly,)
-
-    

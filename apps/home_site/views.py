@@ -4,22 +4,17 @@ from django.urls import reverse_lazy
 
 from .forms import *
 from apps.services.models import Service
-from apps.shop.models import ImagesForProducts
 from apps.users.models import Basket, Order
 from apps.home_site.models import ConstructionImages, SiteInfo
 from apps.construction.models import Pool
 
 
-class Home(generic.ListView):
-    model = SiteInfo 
-    template_name = 'home/home.html'
-
-class UpdateInfo(generic.UpdateView):
+class UpdateInfo(generic.UpdateView, generic.CreateView):
     model = SiteInfo
     form_class = UpdateOrCreateInfoForm
     template_name = 'home/site/update_info.html'
     context_object_name = 'form'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('admin')
 
     def form_valid(self, form):
         form.save(commit=False)
@@ -36,7 +31,7 @@ class UpdateInfo(generic.UpdateView):
         return context
 
 class Admin(generic.ListView):
-    model = SiteInfo 
+    model = Order 
     template_name = 'home/site/admin.html'
     
     def post(self, request, *args, **kwargs):
@@ -104,7 +99,7 @@ class DeleteOrder(generic.DeleteView):
         order = Order.objects.get(id = self.kwargs['pk'])
         Basket.objects.filter(user = order.user, status = True, order = order).delete()
         self.object.delete()
-        return redirect('admin')
+        return redirect('filter_admin', 'order')
 
 class DeleteOrderUser(generic.DeleteView):
     model = Order
@@ -131,10 +126,19 @@ class DeleteService(generic.DeleteView):
     template_name = 'home/site/delete.html'
     success_url = reverse_lazy('admin')
 
+    def form_valid(self, form):
+        self.object.delete()
+        return redirect('filter_admin', 'services')
+
 class DeletePool(generic.DeleteView):
     model = Pool
     template_name = 'home/site/delete.html'
     success_url = reverse_lazy('admin')
+
+
+    def form_valid(self, form):
+        self.object.delete()
+        return redirect('filter_admin', 'constructions')
 
 class DeletePoolUser(generic.DeleteView):
     model = Pool

@@ -51,8 +51,6 @@ class cListView(generic.CreateView):
         self.object = None
         return super().post(request, *args, **kwargs)
 
-
-
 class CreatePoolAdditionally(generic.CreateView):
     form_class = CreatePoolAdditionallyForm
     template_name = 'home/site/yes.html'
@@ -62,7 +60,6 @@ class ListAdditionallyView(generic.ListView):
     model = Additionally 
     template_name = 'construction/list_additionally.html'
     context_object_name = 'cats'
-
 
 class UpdateAdditionally(generic.UpdateView):
     model = Additionally
@@ -75,7 +72,6 @@ class DeleteAdditionally(generic.DeleteView):
     model = Additionally
     template_name = 'home/site/delete.html'
     success_url = reverse_lazy('list_additionally')
-
 
 class ListTypesPoolView(generic.ListView):
     model = PoolCat 
@@ -98,8 +94,6 @@ class DeleteCategoryPool(generic.DeleteView):
     model = PoolCat
     template_name = 'home/site/delete.html'
     success_url = reverse_lazy('list_pool_cats')
-
-
 
 class CreatePoolDecoration(generic.CreateView):
     form_class = CreatePoolDecorationForm

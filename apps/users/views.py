@@ -62,7 +62,7 @@ class BasketViewList(generic.ListView):
             Basket.objects.filter(id = request.POST.get('basket_id')).delete()
             return redirect('basket')   
         elif request.method=='POST' and 'buy' in request.POST:
-            products = Basket.objects.filter(user_id = self.request.user.id)
+            products = Basket.objects.filter(user_id = self.request.user.id, status = False)
             all_price = 0
 
             admins = []
@@ -78,10 +78,9 @@ class BasketViewList(generic.ListView):
             send_message.delay(admins, text_for_admins)
 
             
-            buy = Basket.objects.filter(user_id = self.request.user.id, status = False)
             order = Order.objects.create(user = self.request.user)
             order.save()
-            for i in buy:
+            for i in products:
                 i.order_set.add(order)
             Basket.objects.filter(user_id = self.request.user.id, status = False).update(status = True)
 
@@ -145,7 +144,7 @@ class SearchUser(generic.ListView):
         context['len_users'] = len(context['users'])
         return context
 
-class DetailUserForUser(generic.DeleteView):
+class DetailUserForUser(generic.DetailView):
     model = User
     template_name = 'user/profile_for_user.html'
     pk_url_kwarg = 'id'
