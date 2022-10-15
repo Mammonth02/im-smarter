@@ -9,7 +9,7 @@ from apps.home_site.models import ConstructionImages, SiteInfo
 from apps.construction.models import Pool
 
 
-class UpdateInfo(generic.UpdateView, generic.CreateView):
+class UpdateInfo(generic.UpdateView):
     model = SiteInfo
     form_class = UpdateOrCreateInfoForm
     template_name = 'home/site/update_info.html'
@@ -29,6 +29,13 @@ class UpdateInfo(generic.UpdateView, generic.CreateView):
         context['images'] = ConstructionImages.objects.all()
         context['id'] = self.kwargs['pk']
         return context
+
+class CreateInfo(generic.CreateView):
+    model = SiteInfo
+    form_class = UpdateOrCreateInfoForm
+    template_name = 'home/site/update_info.html'
+    context_object_name = 'form'
+    success_url = reverse_lazy('admin')
 
 class Admin(generic.ListView):
     model = Order 
