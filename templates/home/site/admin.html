@@ -35,6 +35,9 @@
 
             <div class="col-md-4 col-lg-4 col-xl-5 leftColumn aside toggle__aside" id="js-toggle__aside">
                 <div class="toggle__aside-cloe icon-1828778" id="js-aside-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
                 </div>
                 <div class="shop-aside__wrapper">
                     <div class="shop-aside__item">
@@ -111,9 +114,30 @@
                     </div>
                     <br>
                 </div>
+                
             </div>
 
             <div class="col-lg-8 col-xl-7">
+                <div class="tt-filters" style="width: 300px;">
+                    <div class="tt-col tt-filters__toggle-parent">
+                        <div class="tt-filters__toggle" id="js-toggle__btn">
+                            <div class="tt-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
+                                    <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                                  </svg>
+                            </div>
+                            <div class="tt-text">
+                                Боковая панель
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="tt-col tt-filters__info-parent tt-visible__descktop">
+                        <div class="tt-filters__info">
+                            Отабражено {{fiter_len}} из {{all_len}} товаров
+                        </div>
+                    </div>
+                </div>
 
                 {%if not orders and not services and not constructions and not cancel_orders and not cancel_services and  not cancel_constructions%}
                     <center>
